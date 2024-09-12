@@ -10,7 +10,7 @@ PRELIMINARY REQUIREMENTS
 
 STEP1: CLICK THE SEARCH BAR WITH THE URL OF THIS GITHUB
 
-STEP2: SA DULO NG https:// type nyo "vscode.dec/"
+STEP2: SA DULO NG https:// type nyo "vscode.dev/"
 
 STEP3: mag boomshakalaka
 
