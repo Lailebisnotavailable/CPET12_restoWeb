@@ -8,6 +8,15 @@ def warp(request):
 def LogIn(request):
     return render(request, 'Log-In.html')
 
+def ForgetPassword(request):
+    return render(request, 'ForgetPassword.html')
+
+def OneTimePassword(request):
+    return render(request, 'OneTimePassword.html')
+
+def ResetPassword(request):
+    return render(request, 'ResetPassword.html')
+
 def Register(request):
     return render(request, 'Register.html')
 
