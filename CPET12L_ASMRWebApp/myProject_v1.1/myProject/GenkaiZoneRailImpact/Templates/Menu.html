@@ -1,0 +1,316 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>catalogue {
+            padding: 20px;
+        }
+        .category {
+            margin-bottom: 40px;
+        }
+        .category h2 {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            margin-bottom: 15px; 
+        }
+
+        
+        .item {
+            background-color: white;
+            min-width: 250px;
+            margin-right: 3px;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: left;
+            flex-shrink: 0;
+        }
+        .item img {
+            width: 50%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .item h3 {
+            margin: 15px 0 5px 0;
+        }
+        .item p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <!-- First Image Button -->
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px">
+            </button>
+        </form>
+
+        <!-- Search Bar -->
+        <form action="search.html" method="get">
+            <input type="text" placeholder="Search..." name="search">
+        </form>
+
+        <!-- Second Image Button -->
+        <form action="Profile" method="get">
+            <button type="submit">
+                <img src='{%static "Media/profile.png"%}'height="50 px" alt="Profile Button">
+            </button>
+        </form>
+    </header>
+
+    <!-- Sorting Buttons Section -->
+    <section>
+        <button type="submit" name="sort" value="appetizers">Appetizers</button>
+        <button type="submit" name="sort" value="main-course">Main Course</button>
+        <button type="submit" name="sort" value="drinks">Drinks</button>
+        <button type="submit" name="sort" value="desserts">Desserts</button>
+    </section>
+
+    <!-- Help Section -->
+    <section>
+        <p>Need Help? <a href="#FAQs">Click Here</a></p>
+    </section>
+
+    <!-- Food Image Buttons Section -->
+    <section>
+        <!-- First Food Item -->
+        <form action="FoodDis" method="get">
+            <button type="submit">
+                <img src='{%static "Media/taiyaki.png"%}' alt="Menu Item 1" >
+                <p>Food Name: Taiyaki </p>
+                <p>Price: 25 </p>
+                <p>Description: </p>
+            </button>
+        </form>
+
+        <!-- Second Food Item -->
+        <form action="FoodDis" method="get">
+            <button type="submit">
+                <img src='{%static "Media/noodles.png"%}' alt="Menu Item 2">
+                <p>Food Name: Noodles</p>
+                <p>Price: 50 </p>
+                <p>Description: </p>
+            </button>
+        </form>
+
+        <!-- Third Food Item -->
+        <form action="FoodDis" method="get">
+            <button type="submit">
+                <img src='{%static "Media/egg.png"%}' alt="Menu Item 3" >
+                <p>Food Name: Egg</p>
+                <p>Price: 30 </p>
+                <p>Description:</p>
+            </button>
+    </section>
+
+        </form>
+    
+    <!-- See More Button -->
+    <section>
+        <button onclick="location.href='#section1'">See More...</button>
+        </form>
+    </section>
+
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+    <section>
+        <div id="section1">
+            <h2>Food Catalog</h2>
+            <p>Feel free to browse more of our dishes!</p>
+        </div>
+        
+    </section>
+        
+
+    <div class="catalogue">
+
+        <!-- Appetizer Category -->
+        <div class="category" data-category="appetizers">
+            <h2>Appetizer</h2>
+            <div class="carousel-container">
+                <button class="carousel-button prev" onclick="scrollCarousel(this, -250)">&#10094;</button>
+                <div class="carousel">
+                    <div class="item">
+                        <img src='{%static "Media/egg.png"%}' alt="Flower">
+                        <h3>Sweet Flower</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/egg.png"%}' alt="Cakey">
+                        <h3>Moon Cake</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/egg.png"%}' alt="Veggie Burger">
+                        <h3>Veggie Burger</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <!-- Add more burger items as needed -->
+                </div>
+                <button class="carousel-button next" onclick="scrollCarousel(this, 250)">&#10095;</button>
+            </div>
+        </div>
+
+        <!-- Main Course Category -->
+        <div class="category" data-category="main course">
+            <h2>Main Course</h2>
+            <div class="carousel-container">
+                <button class="carousel-button prev" onclick="scrollCarousel(this, -250)">&#10094;</button>
+                <div class="carousel">
+                    <div class="item">
+                        <img src='{%static "Media/noodles.png"%}' alt="Adeptus Pot">
+                        <h3>Adeptus Pot</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>    
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/noddles.png"%}' alt="Mondstadt Buffet">
+                        <h3>Monstadt Buffet</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/noodles.png"%}' alt="Liyue Morax">
+                        <h3>Liyue Morax</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">    
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    
+                </div>
+                <button class="carousel-button next" onclick="scrollCarousel(this, 250)">&#10095;</button>
+            </div>
+        </div>
+
+        <!-- Desserts Category -->
+        <div class="category" data-category="desserts">
+            <h2>Desserts</h2>
+            <div class="carousel-container">
+                <button class="carousel-button prev" onclick="scrollCarousel(this, -250)">&#10094;</button>
+                <div class="carousel">
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Chocolate Cake">
+                        <h3>Chocolate Cake</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Ice Cream Sundae">
+                        <h3>Ice Cream Sundae</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Cheesecake">
+                        <h3>Cheesecake</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <!-- Add more dessert items as needed -->
+                </div>
+                <button class="carousel-button next" onclick="scrollCarousel(this, 250)">&#10095;</button>
+            </div>
+        </div>
+
+        <!-- Drinks Category -->
+        <div class="category" data-category="drinks">
+            <h2>Drinks</h2>
+            <div class="carousel-container">
+                <button class="carousel-button prev" onclick="scrollCarousel(this, -250)">&#10094;</button>
+                <div class="carousel">
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Coke">
+                        <h3>Coke</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Lemonade">
+                        <h3>Lemonade</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <div class="item">
+                        <img src='{%static "Media/taiyaki.png"%}' alt="Iced Tea">
+                        <h3>Iced Tea</h3>
+                        <p>Price: </p>
+                    <a href="FoodDis">
+                        <button>View Food</button>
+                    </a>
+                    </div>
+                    <!-- Add more drink items as needed -->
+                </div>
+                <button class="carousel-button next" onclick="scrollCarousel(this, 250)">&#10095;</button>
+            </div>
+        </div>
+
+    </div>
+
+    <section id="FAQs">
+        <h2>Welcome to ASMR FAQs</h2>
+        <p>If you have any questions, please check our frequently asked questions below:</p>
+        <!-- You can add more content here if needed -->
+    </section>
+
+    <footer>
+        <p>© 2024 A.S.M.R. Restaurant Ordering App. All rights reserved.</p>
+    </footer>
+
+
+    
+        
+
+</body>
+</html>
+
+    
+    
+        
+
+

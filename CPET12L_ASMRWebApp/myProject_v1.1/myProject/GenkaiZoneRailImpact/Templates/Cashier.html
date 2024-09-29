@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR</title>
+
+</head>
+<body>
+
+    <!-- Header -->
+    <form action="Home-Page" method="get">
+        <button type="submit">
+            <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Return to Home">
+        </button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Order ID</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample Row 1 -->
+            <tr>
+                <td>Mark Joshua</td>
+                <td>ORD12345</td>
+                <td>$333</td>
+                <td><a href="Payment">Pending</a></td>
+                <td>
+                    <button class="button view">Approve</button>
+                    <button class="button edit">Decline</button>
+                </td>
+            </tr>
+            <!-- Sample Row 2 -->
+            <tr>
+                <td>Mark Milan</td>
+                <td>ORD12346</td>
+                <td>$9999</td>
+                <td><a href="Payment">Unpaid</a></td>
+                <td>
+                    <button class="button view">Approve</button>
+                    <button class="button edit">Decline</button>
+                </td>
+            </tr>
+            <!-- Add more rows as needed --> 
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Return to Home">
+            </button>
+        </form>
+        <p>&copy; 2024 A.S.M.R. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
