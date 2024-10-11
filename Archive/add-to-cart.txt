@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple eCommerce Add to Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .cart {
+            margin: 20px 0;
+        }
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+        .cart-items li {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Products</h1>
+
+    <!-- Product Section -->
+    <div class="product">
+        <h2>Product 1</h2>
+        <p>Price: $10</p>
+        <button class="btn" onclick="addToCart('Product 1', 10)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+        <h2>Product 2</h2>
+        <p>Price: $20</p>
+        <button class="btn" onclick="addToCart('Product 2', 20)">Add to Cart</button>
+    </div>
+
+    <!-- Cart Section -->
+    <h2>Shopping Cart</h2>
+    <div class="cart">
+        <ul class="cart-items" id="cart-items">
+            <li>No items in cart</li>
+        </ul>
+        <p>Total: $<span id="cart-total">0</span></p>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(product, price) {
+            // Add product to the cart array
+            cart.push({ name: product, price: price });
+            
+            // Update the cart UI
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsElement = document.getElementById('cart-items');
+            cartItemsElement.innerHTML = ''; // Clear existing items
+            
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - $${item.price}`;
+                cartItemsElement.appendChild(li);
+            });
+
+            // Update the total price
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total').textContent = total;
+        }
+    </script>
+
+</body>
+</html>

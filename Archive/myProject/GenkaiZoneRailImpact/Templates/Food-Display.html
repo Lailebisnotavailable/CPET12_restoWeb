@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Item</title>
+    
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src="ogo.jpg" alt="Return to Home">
+            </button>
+        </form>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <button class="image-btn">
+            <img src="button-icon.png" alt="FAQ">
+        </button>
+        <form action="Profile" method="get">
+            <button type="submit" class="image-btn account-btn">
+                <img src="account-icon.png" alt="Account">
+            </button>
+        </form>
+        
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Image Section -->
+        <div class="food-image"></div>
+        <img src="taiyaki.png" alt="FoodImg">
+
+        <!-- Details Section -->
+        <div class="details">
+            <form action="Menu.html" method="get">
+                <button type="submit" class="back-btn">Back to Menu</button>
+            </form>
+            
+            <h2>Food Name</h2>
+            <p>Description of the food item goes here..</p>
+            <p><strong>Price: </strong></p>
+            <form action="Cart.html" method="get">
+                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <!-- Feedback & Ratings Section -->
+    <div class="feedback-section">
+        <h3>Feedback & Ratings</h3>
+        <button class="feedback-btn">Top</button>
+        <button class="feedback-btn">Newest</button>
+        <textarea placeholder="Leave your feedback here..."></textarea>
+        <br>
+        <button class="feedback-btn">Submit</button>
+        <button class="feedback-btn">Rate</button>
+    </div>
+
+    <!-- You Might Also Like Section -->
+    <div class="you-might-like">
+        <h3>You Might Also Like</h3>
+        <div class="you-might-like-images">
+            <img src="egg.png" alt="Suggestion 1"> <!-- Replace with actual image -->
+            <img src="noodles.png" alt="Suggestion 2"> <!-- Replace with actual image -->
+            <button class="feedback-btn">View More</button>
+        </div>
+    </div>
+
+</body>
+</html>

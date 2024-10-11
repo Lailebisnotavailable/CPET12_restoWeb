@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR</title>
+</head>
+<body style="margin: 0; padding: 0;">
+
+    <!-- Header with elements -->
+    <header style="display: flex; align-items: center; padding: 20px; border-bottom: 3px solid black;">
+        <img src="ASMR-logo.jpg" alt="Store Logo" style="height: 120px; flex-shrink: 0;">
+
+        <div style="display: flex; align-items: center; margin-left: 50px; flex: 1; justify-content: space-between;">
+            <div style="display: flex; align-items: center; margin-right: -150px;">
+                <label style="margin-right: 10px;">
+                    <input type="radio" name="orderOption" value="delivery" style="margin-right: 5px;">
+                    Delivery
+                </label>
+                <label>
+                    <input type="radio" name="orderOption" value="pickup" style="margin-right: 5px;">
+                    Pick-up
+                </label>
+            </div>
+
+            <div style="width: 1px; height: 60px; background-color: black; margin: 0 -275px;"></div>
+
+            <button style="background: none; border: none; cursor: pointer; margin-left: -200px;">
+                <img src="Location-button.png" alt="Location Icon" style="height: 40px;">
+            </button>
+
+            <div style="display: flex; align-items: center;">
+                <input type="text" placeholder="Search..." style="padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px 0 0 4px; width: 150px;">
+                <button type="submit" style="padding: 8px 16px; border: 1px solid #ccc; border-left: none; background-color: #28a745; color: white; cursor: pointer; border-radius: 0 4px 4px 0; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#218838'" onmouseout="this.style.backgroundColor='#28a745'">
+                    Search
+                </button>
+            </div>
+
+            <div style="display: flex; align-items: center; margin-left: -450px;">
+                <button style="background: none; border: none; cursor: pointer; margin-left: 10px;">
+                    <a href="register.html" title="Account">
+                        <img src="profile-icon.jpg" alt="Profile Icon" style="height: 40px;">
+                    </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Combined Table Layout -->
+    <main style="padding: 20px; position: relative;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ccc; padding: 10px; background-color: #f0f0f0; text-align: left;">Shopping Cart</th>
+                    <th style="border: 1px solid #ccc; padding: 10px; background-color: #f0f0f0; text-align: left;">Qty.</th>
+                    <th style="border: 1px solid #ccc; padding: 10px; background-color: #f0f0f0; text-align: left;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 10px;">
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">
+                            <!-- Title Row Content -->
+                        </div>
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">
+                            <img src="placeholder-image.png" alt="Item Image" style="width: 100%; height: auto; max-height: 120px; object-fit: cover;">
+                        </div>
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">
+                            <img src="placeholder-image.png" alt="Item Image" style="width: 100%; height: auto; max-height: 120px; object-fit: cover;">
+                        </div>
+                    </td>
+                    <td style="border: 1px solid #ccc; padding: 10px;">
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">Row 1</div>
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">Row 2</div>
+                    </td>
+                    <td style="border: 1px solid #ccc; padding: 10px;">
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">Row 1</div>
+                        <div style="background-color: #e0e0e0; border: 1px solid #bbb; padding: 10px;">Row 2</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Label under the whole table -->
+        <label style="text-align: center; margin-top: 10px; background-color: #e0e0e0; border: 1px solid #bbb; padding: 5px; font-size: 2em; display: block;"">
+            Total
+        </label><br><br>
+
+        <!-- Buttons at the bottom corners -->
+        <button style="position: absolute; bottom: 20px; left: 20px; padding: 10px 20px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer; border-radius: 4px;">
+            <a href="catalog.html" style="text-decoration: none; color: black;">Back to Store</a>
+        </button>
+        <button style="position: absolute; bottom: 20px; right: 20px; padding: 10px 20px; border: 1px solid #ccc; background-color: #28a745; color: white; cursor: pointer; border-radius: 4px;">
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer style="display: flex; justify-content: center; align-items: center; padding: 20px; border-top: 3px solid black; background-color: white;">
+        <img src="ASMR-logo.jpg" alt="Footer Logo" style="height: 120px;">
+    </footer>
+
+</body>
+</html>
