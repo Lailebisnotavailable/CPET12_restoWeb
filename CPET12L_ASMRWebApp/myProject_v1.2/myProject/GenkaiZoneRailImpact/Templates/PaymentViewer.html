@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Viewer</title>
+</head>
+
+<body>
+
+    <!-- Main content of the page with an image and buttons -->
+    <main>
+
+        <!-- Image replacing placeholder -->
+        <img src='{% static "Media/receipt-sample.png" %}' height="300px" width="170px" alt="Payment Screenshot" class="main-content-image">
+
+        <!-- Label for Return to Cashier -->
+        <div class="cashier-label">Return to Cashier</div>
+
+        <!-- Image buttons -->
+        <div class="buttons-container">
+            <!-- First image button -->
+            <form action="Cashier">
+                <button class="image-button" type="submit">
+                    <img src='{% static "Media/sign-out.png" %}' alt="First Button" height="50px" width="50px">
+                </button>
+            </form>
+
+        </div>
+    </main>
+    
+</body>
+</html>
