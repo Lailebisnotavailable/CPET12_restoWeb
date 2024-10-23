@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function showNotification() {
+            alert("Admin Changes have been recognized");
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Restaurant Admin Panel</h1>
+    <a href=" " target="_blank" class="view-restaurant-btn">View Restaurant</a>
+</header>
+
+<main>
+    
+    <!-- Add Dish Section -->
+    <div class="form-container">
+        <h2>Add New Dish</h2>
+            
+        <form action="Admin" method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><label for="dishName">Dish Name:</label></td>
+                    <td><input type="text" id="dishName" name="dishName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="dishCategory">Category:</label></td>
+                    <td>
+                        <select id="dishCategory" name="dishCategory" required>
+                            <option value="Appetizer">Appetizer</option>
+                            <option value="Main Dish">Main Dish</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Drinks">Drinks</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dishPrice">Dish Price(in Peso):</label></td>
+                    <td><input type="number" id="dishPrice" name="dishPrice" required></td>
+                </tr>
+                <tr>
+                    <td><label for="dishDescription">Food Description:</label></td>
+                    <td><textarea id="dishDescription" name="dishDescription" rows="4" cols="50" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="dishImage">Upload Image:</label></td>
+                    <td><input type="file" id="dishImage" name="dishImage" accept="image/*" required></td>
+                </tr>
+            </table>
+            <button type="submit">Add Dish</button>
+        </form>
+    </div>
+
+    <!-- View Dishes Section -->
+    <div class="table-container">
+        <h2>View Dishes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Dish Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="dishTableBody">
+                <!-- Dynamic content will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit" onclick="showNotification()">Confirm Changes</button>
+</main>
+
+</body>
+</html>

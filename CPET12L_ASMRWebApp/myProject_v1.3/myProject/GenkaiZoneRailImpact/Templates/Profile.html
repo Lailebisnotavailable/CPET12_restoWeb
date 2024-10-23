@@ -1,0 +1,98 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR Profile</title>
+</head>
+<body>
+
+    <!-- First Image Button -->
+    <form action="Home-Page" method="get">
+        <button type="submit" style="border: none; background: none; padding: 2;">
+            <img src='{%static "Media/home.png"%}' height="50 px" width="50 px" alt="Home Page" >
+        </button>
+    </form>
+
+    <!-- Second Image Button -->
+    <form action="Menu" method="get">
+        <button type="submit" style="border: none; background: none; padding: 2;">
+            <img src='{%static "Media/menu-icon.png"%}' height="50 px" width="50 px" alt="Return to Menu" >
+        </button>
+    </form>
+
+    <!-- Image Placeholder -->
+    <img src='{%static "Media/profile.png"%}' height="150 px" width="150 px" alt="Profile Image" >
+
+    <!-- Upload Image Button -->
+<form action="upload-image" method="POST" enctype="multipart/form-data">
+    <input type="file" accept="image/*" name="profile-image" style="display: none;" id="file-input" required>
+    <button type="button" style="border: none; background: none; padding: 0;" onclick="document.getElementById('file-input').click();">
+        <img src='{%static "Media/pencil.png"%}' height="30 px" width="30 px" alt="Edit Profile Photo">
+    </button>
+    <button type="submit" style="display: none;">Upload</button> <!-- This button can be used to submit the form -->
+</form>
+
+
+    <!-- Third Image Button -->
+    <form action="Home-Page" method="get">
+        <button type="submit" style="border: none; background: none; padding: 0;">
+            <img src='{%static "Media/sign-out.png"%}' height="50 px" width="50 px" alt="Home Page" >
+        </button>
+    </form>
+
+    <!-- Sign In Form -->
+    <form>
+        <!-- First Name Label and Input -->
+        <label for="first-name">First name:</label><br>
+        <input type="text" id="first-name" name="first-name"  autofocus><br><br>
+
+        <!-- Last Name Label and Input -->
+        <label for="last-name">Last name:</label><br>
+        <input type="text" id="last-name" name="last-name" ><br><br>
+
+        <!-- Contact No. and Input -->
+        <label for="contact-no">Contact No.:</label><br>
+        <input type="contact-no" id="contact-no" name="contact-no" ><br><br>
+
+        <!-- Password Label and Input -->
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" ><br><br>
+
+        <!-- Email and Input -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" ><br><br>
+
+        <!-- Address and Input -->
+        <label for="phys-add">Physical Address:</label><br>
+        <input type="phys-add" id="phys-add" name="phys-add" ><br><br>
+
+
+        <!-- Additional Text and Password Guidelines -->
+    <div>
+        <p>*Must include:</p>
+        <ul>
+            <li>8 characters minimum</li>
+            <li>Uppercase letter</li>
+            <li>Lowercase letter</li>
+            <li>Special characters</li>
+            <li>Numbers</li>
+        </ul>
+    </div>
+
+        <!-- Fifth Image Button -->
+    <form action="edit-info.html" method="get">
+        <button type="edit" style="border: none; background: none; padding: 0;">
+            <img src='{%static "Media/pencil.png"%}' height="30 px" width="30 px"  alt="Edit Info" >
+        </button>
+    </form>
+
+        <!-- Fifth Image Button -->
+    <form action="Home-Page" method="get">
+        <button type="home" style="border: none; background: none; padding: 0;">
+            <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Home Page" >
+        </button>
+    </form>
+</body>
+</html>
