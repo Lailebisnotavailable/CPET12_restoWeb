@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR Checkout</title>
+    <style>
+        /* Styles for the pop-up notification */
+        #popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+        }
+        #popup h3 {
+            margin: 0;
+        }
+        #overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 500;
+        }
+        /* Style for the button */
+        .wallet-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .wallet-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        let walletBalance = 100; // Example wallet balance, should be dynamically retrieved
+        let totalAmount = 55.00; // Example total amount
+
+        // Function to update the wallet balance display
+        function updateWalletBalance() {
+            document.getElementById("wallet-balance").innerText = "₱" + walletBalance.toFixed(2);
+        }
+
+        // Function to handle e-wallet payment
+        function handlePayment() {
+            if (walletBalance >= totalAmount) {
+                walletBalance -= totalAmount; // Deduct total from wallet
+                showConfirmationPopup(); // Show confirmation pop-up
+                updateWalletBalance(); // Update wallet balance on UI
+            } else {
+                alert("Insufficient wallet balance. Please top-up your wallet.");
+            }
+        }
+
+        // Function to show the confirmation pop-up
+        function showConfirmationPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        // Function to close the confirmation pop-up
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // Initialize wallet balance on page load
+        window.onload = updateWalletBalance;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+
+        <!-- Buyer Information -->
+        <div class="buyer-info">
+            <h3>Buyer Information</h3>
+            <p><strong>Name:</strong> Mark Trieste Joshua Ayapana</p>
+            <p><strong>Address:</strong> 69 Salawag, Dasma, Cavite</p>
+        </div>
+
+        <!-- Table for Product Details -->
+        <table border="1" width="100%" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Product Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src='{% static "Media/taiyaki.png" %}' alt="Product 1" width="100"></td>
+                    <td>₱1.00</td>
+                    <td>1</td>
+                    <td>₱1.00</td>
+                </tr>
+                <tr>
+                    <td><img src='{% static "Media/noodles.png" %}' alt="Product 2" width="100"></td>
+                    <td>₱1.00</td>
+                    <td>1</td>
+                    <td>₱1.00</td>
+                </tr>
+                <tr>
+                    <td><img src='{% static "Media/egg.png" %}' alt="Product 3" width="100"></td>
+                    <td>₱1.00</td>
+                    <td>1</td>
+                    <td>₱1.00</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" align="right"><strong>Total:</strong></td>
+                    <td><strong>₱55.00</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- Wallet Balance Display -->
+        <div class="wallet-balance">
+            <h3>Your Wallet Balance</h3>
+            <p><strong id="wallet-balance">₱0.00</strong></p>
+            <button class="wallet-button" onclick="window.location.href='wallet-module-url';">Go to Wallet</button>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="payment-options">
+            <h3>Payment Method</h3>
+            <form>
+                <input type="radio" id="wallet" name="payment-method" value="wallet" required>
+                <label for="wallet">Use E-wallet</label><br>
+                <button type="button" onclick="handlePayment()">Pay with E-wallet</button>
+            </form>
+        </div>
+
+        <!-- Short Invoice Summary -->
+        <div class="invoice-summary">
+            <h3>Invoice Summary</h3>
+            <p><strong>Grand Total:</strong> ₱55.00</p>
+        </div>
+
+        <!-- Pop-Up Notification -->
+        <div id="overlay"></div>
+        <div id="popup">
+            <h3>Order Confirmation</h3>
+            <p>Your order is being processed and will be delivered to you shortly.</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+
+    </div>
+</body>
+</html>
