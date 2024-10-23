@@ -1,0 +1,62 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR</title>
+</head>
+<body>
+
+    <!-- Header with an image button -->
+    <header>
+        <form action="Home-Page" method="get">
+            <button type="submit" >
+                <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Return to Home" >
+            </button>
+        </form>
+    </header>
+
+    <!-- Image placeholder for the background -->
+    <img src='{%static "Media/img.jpg"%}' height="350 px" width="290 px" alt="Background Placeholder" >
+
+    <h1>Hungry? Login now!</h1>
+
+    <!-- Sign In Form -->
+    <form action="Profile" method="get">
+        <!-- Email Label and Input -->
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <!-- Password Label and Input -->
+        <div>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <!-- Sign In Button -->
+        <button type="submit">Sign In</button>
+    </form>
+
+    <!-- Registration Link -->
+    <div>
+        <a href="ForgetPass">Forgot Password?.</a>
+    </div>
+    <div>
+        <a href="Register">Don't have an account? Register here.</a>
+    </div>
+
+    <!-- Footer with an image button -->
+    <footer>
+        <form action="Home-Page" method="get">
+            <button type="submit" >
+                <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Footer Logo Button" >
+            </button>
+        </form>
+        <p>&copy; 2024 All rights reserved</p>
+    </footer>
+
+</body>
+</html>

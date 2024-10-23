@@ -1,0 +1,82 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR Food Item</title>
+    
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src='{%static "Media/ASMR-logo.jpg"%}' height="50 px" width="90 px" alt="Return to Home">
+            </button>
+        </form>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <button class="image-btn">
+            <img src='{%static "Media/question-mark.png"%}' height="40 px" width="40 px" alt="FAQ">
+        </button>
+        <form action="Cart" method="get">
+            <button type="submit" class="image-btn account-btn">
+                <img src='{%static "Media/cart-icon.png"%}'height="50 px" width="50 px" alt="Cart">
+            </button>
+        </form>
+        <form action="Profile" method="get">
+            <button type="submit" class="image-btn account-btn">
+                <img src='{%static "Media/profile.png"%}'height="50 px" width="50 px" alt="Account">
+            </button>
+        </form>
+        
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Image Section -->
+        <div class="food-image"></div>
+        <img src='{%static "Media/taiyaki.png"%}' alt="FoodImg">
+
+        <!-- Details Section -->
+        <div class="details">
+            <form action="Menu" method="get">
+                <button type="submit" class="back-btn">Back to Menu</button>
+            </form>
+            
+            <h2>Food Name</h2>
+            <p>Description of the food item goes here..</p>
+            <p><strong>Price: </strong></p>
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+            
+        </div>
+    </div>
+
+    <!-- Feedback & Ratings Section -->
+    <div class="feedback-section">
+        <h3>Feedback & Ratings</h3>
+        <button class="feedback-btn">Top</button>
+        <button class="feedback-btn">Newest</button>
+        <textarea placeholder="Leave your feedback here..."></textarea>
+        <br>
+        <button class="feedback-btn">Submit</button>
+        <button class="feedback-btn">Rate</button>
+    </div>
+
+    <!-- You Might Also Like Section -->
+    <div class="you-might-like">
+        <h3>You Might Also Like</h3>
+        <div class="you-might-like-images">
+            <img src='{%static "Media/egg.png"%}' alt="Suggestion 1"> <!-- Replace with actual image -->
+            <img src='{%static "Media/noodles.png"%}' alt="Suggestion 2"> <!-- Replace with actual image -->
+        <form action="Menu" method="get">    
+            <button type="submit" class="back-btn">View More</button>
+        </form>
+        </div>
+    </div>
+
+</body>
+</html>
