@@ -5,134 +5,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASMR Profile</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-        /* Tooltip styling */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #555;
-            color: #fff;
+        header, footer {
+            background-color: #333;
+            color: white;
             text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;  /* Position the tooltip above the button */
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            padding: 1rem;
         }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+        .profile-container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-container img {
+            display: block;
+            margin: 0 auto;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[readonly] {
+            background-color: #e9ecef;
+        }
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .address-grid input {
+            width: 100%;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .update-btn, .edit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 48%;
+        }
+        .edit-btn {
+            background-color: #007bff;
+        }
+        .update-btn:hover {
+            background-color: #218838;
+        }
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+        .update-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <h1>Profile</h1>
+    </header>
 
-    <!-- First Image Button -->
-    <form action="Home-Page" method="get">
-        <button type="submit" style="border: none; background: none; padding: 2;">
-            <img src='{% static "Media/home.png" %}' height="50px" width="50px" alt="Home Page">
-        </button>
-    </form>
-
-    <!-- Second Image Button -->
-    <form action="Menu" method="get">
-        <button type="submit" style="border: none; background: none; padding: 2;">
-            <img src='{% static "Media/menu-icon.png" %}' height="50px" width="50px" alt="Return to Menu">
-        </button>
-    </form>
-
-    <!-- Image Placeholder -->
-    <img src='{% static "Media/profile.png" %}' height="150px" width="150px" alt="Profile Image">
-
-    <!-- Upload Image Button -->
-    <form action="upload-image" method="POST" enctype="multipart/form-data">
-        <input type="file" accept="image/*" name="profile-image" style="display: none;" id="file-input" required>
-        <button type="button" style="border: none; background: none; padding: 0;" onclick="document.getElementById('file-input').click();">
-            <img src='{% static "Media/pencil.png" %}' height="30px" width="30px" alt="Edit Profile Photo">
-        </button>
-        <button type="submit" style="display: none;">Upload</button> <!-- This button can be used to submit the form -->
-    </form>
-
-    <!-- Wallet Button with Tooltip -->
-    <form action="wallet" method="get">
-        <div class="tooltip">
-            <button type="submit" style="border: none; background: none; padding: 2;">
-                <img src='{% static "Media/wallet-icon.png" %}' height="50px" width="50px" alt="Wallet">
+    <div class="profile-container">
+        <!-- First Image Button -->
+        <form action="Home-Page" method="get">
+            <button type="submit" style="border: none; background: none;">
+                <img src='{% static "Media/home.png" %}' height="50" width="50" alt="Home Page">
             </button>
-            <span class="tooltiptext">Wallet</span>
-        </div>
-    </form>
+        </form>
 
-    <!-- Third Image Button -->
-    <form action="Home-Page" method="get">
-        <button type="submit" style="border: none; background: none; padding: 0;">
-            <img src='{% static "Media/sign-out.png" %}' height="50px" width="50px" alt="Home Page">
-        </button>
-    </form>
+        <!-- Profile Image -->
+        <img src='{% static "Media/profile.png" %}' height="150" width="150" alt="Profile Image">
 
-    <!-- Sign In Form -->
-    <form>
-        <!-- First Name Label and Input -->
-        <label for="first-name">First name:</label><br>
-        <input type="text" id="first-name" name="first-name" autofocus><br><br>
+        <!-- Upload Image Button -->
+        <form action="upload-image" method="POST" enctype="multipart/form-data">
+            <input type="file" accept="image/*" name="profile-image" style="display: none;" id="file-input" required>
+            <button type="button" style="border: none; background: none;" onclick="document.getElementById('file-input').click();">
+                <img src='{% static "Media/pencil.png" %}' height="30" width="30" alt="Edit Profile Photo">
+            </button>
+            <button type="submit" style="display: none;">Upload</button>
+        </form>
 
-        <!-- Last Name Label and Input -->
-        <label for="last-name">Last name:</label><br>
-        <input type="text" id="last-name" name="last-name"><br><br>
+        <!-- Form -->
+        <form id="profile-form">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name" readonly>
 
-        <!-- Contact No. and Input -->
-        <label for="contact-no">Contact No.:</label><br>
-        <input type="contact-no" id="contact-no" name="contact-no"><br><br>
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name" readonly>
 
-        <!-- Password Label and Input -->
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
+            <label for="contact-no">Contact No.:</label>
+            <input type="number" id="contact-no" name="contact-no" readonly>
 
-        <!-- Email and Input -->
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" readonly>
 
-        <!-- Address and Input -->
-        <label for="phys-add">Physical Address:</label><br>
-        <input type="text" id="phys-add" name="phys-add"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" readonly>
 
-        <!-- Password Guidelines -->
-        <div>
-            <p>*Must include:</p>
-            <ul>
-                <li>8 characters minimum</li>
-                <li>Uppercase letter</li>
-                <li>Lowercase letter</li>
-                <li>Special characters</li>
-                <li>Numbers</li>
-            </ul>
-        </div>
-    </form>
+            <!-- Address Fields -->
+            <label for="phys-add">Physical Address:</label>
+            <div class="address-grid">
+                <input type="text" id="block-lot" name="block-lot" placeholder="Block & Lot" readonly>
+                <input type="text" id="street" name="street" placeholder="Street" readonly>
+                <input type="text" id="subdivision" name="subdivision" placeholder="Subdivision" readonly>
+                <input type="text" id="barangay" name="barangay" placeholder="Barangay" readonly>
+                <input type="text" id="city" name="city" placeholder="City" readonly>
+                <input type="text" id="province" name="province" placeholder="Province" readonly>
+            </div>
 
-    <!-- Edit Info Button -->
-    <form action="edit-info.html" method="get">
-        <button type="edit" style="border: none; background: none; padding: 0;">
-            <img src='{% static "Media/pencil.png" %}' height="30px" width="30px" alt="Edit Info">
-        </button>
-    </form>
+            <!-- Button Group -->
+            <div class="btn-group">
+                <button type="button" class="edit-btn" onclick="enableEditing()">Edit Profile</button>
+                <button type="submit" class="update-btn" disabled>Update Profile</button>
+            </div>
+        </form>
+    </div>
 
-    <!-- Home Button -->
-    <form action="Home-Page" method="get">
-        <button type="home" style="border: none; background: none; padding: 0;">
-            <img src='{% static "Media/ASMR-logo.jpg" %}' height="50px" width="90px" alt="Home Page">
-        </button>
-    </form>
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 ASMR. All rights reserved.</p>
+    </footer>
 
+    <script>
+        function enableEditing() {
+            // Get all input fields in the form
+            const inputs = document.querySelectorAll('#profile-form input');
+            inputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+
+            // Enable the Update button
+            document.querySelector('.update-btn').removeAttribute('disabled');
+        }
+    </script>
 </body>
 </html>
