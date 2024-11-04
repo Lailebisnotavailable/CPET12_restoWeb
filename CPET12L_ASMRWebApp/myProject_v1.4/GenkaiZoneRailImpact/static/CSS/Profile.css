@@ -1,0 +1,148 @@
+/* General body and layout styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    flex: 1;
+    padding-bottom: 80px; /* Space to prevent footer overlap */
+}
+
+.profile-container {
+    width: 80%;
+    margin: auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container img {
+    display: block;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+}
+
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.address-grid input {
+    width: 100%;
+}
+
+/* Button styles */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-btn, .edit-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 48%;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+
+.update-btn:hover {
+    background-color: #218838;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.update-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Styles for image upload button */
+#image-upload-form {
+    position: relative; /* Allows positioning within this context */
+}
+
+#file-input {
+    display: none; /* Hide the default file input */
+}
+
+button[type="button"] {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    opacity: 0.8; /* Slightly dim the button on hover */
+}
+
+/* Style for the image icon */
+button[type="button"] img {
+    height: 30px; /* Size of the image icon */
+    width: 30px;
+    transition: transform 0.2s; /* Add a transition for scaling effect */
+}
+
+button[type="button"]:hover img {
+    transform: scale(1.1); /* Scale up the icon on hover */
+}
+
+/* Footer styling */
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #333;
+    color: white;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+}

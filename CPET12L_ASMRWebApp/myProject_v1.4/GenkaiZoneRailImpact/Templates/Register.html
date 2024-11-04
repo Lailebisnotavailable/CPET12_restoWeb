@@ -1,0 +1,108 @@
+{% extends "Header-Footer.html" %}  <!-- Base Template -->
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<h2>Let's get you started</h2>
+
+<div id="error-message" style="margin-bottom: 10px;">
+    {% if error_message %}
+        <span style="color: red;">{{ error_message }}</span>
+    {% endif %}
+</div>
+
+<!-- Sign In Form -->
+<form action="Register" method="POST" onsubmit="validatePasswords(event)">
+    {% csrf_token %}
+    <!-- First Name Label and Input -->
+    <label for="first-name">First name:</label><br>
+    <input type="text" id="first-name" name="first-name" required autofocus><br><br>
+
+    <!-- Last Name Label and Input -->
+    <label for="last-name">Last name:</label><br>
+    <input type="text" id="last-name" name="last-name" required><br><br>
+
+    <!-- Email Label and Input -->
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Password Label and Input -->
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br>
+    <button type="button" onclick="togglePasswordVisibility('password')">👁️</button><br><br>
+
+    <!-- Confirm Password Label and Input -->
+    <label for="confirm-password">Confirm Password:</label><br>
+    <input type="password" id="confirm-password" name="confirm-password" required><br>
+    <button type="button" onclick="togglePasswordVisibility('confirm-password')">👁️</button><br><br>
+
+    <!-- Additional Text and Password Guidelines -->
+<div>
+    <p>*Must include:</p>
+    <ul>
+        <li>30 characters maximum</li>
+        <li>Uppercase letter</li>
+        <li>Lowercase letter</li>
+        <li>Special characters</li>
+        <li>Numbers</li>
+    </ul>
+</div>
+
+    <!-- Birthday Label and Input -->
+    <label for="birthday">Birthday:</label><br>
+    <input type="date" id="birthday" name="birthday" required><br><br>
+
+    <!-- Contact Number Label and Input -->
+    <label for="contact-number">Contact Number:</label><br>
+    <input type="text" id="contact-number" name="contact-number" required pattern="[0-9]{11}" title="Enter a valid 11-digit phone number" oninput="this.value = this.value.slice(0, 11)"><br><br>
+
+    <!-- Security Question Label and Dropdown -->
+    <label for="sec-question">Security Question:</label><br>
+    <select id="sec-question" name="sec-question" required onchange="toggleCustomQuestion()">
+        <option value="" disabled selected>Select a security question</option>
+        <option value="What is your hair color">What is your hair color?</option>
+        <option value="What is your mother's maiden surname?">What is your mother's maiden surname?</option>
+        <option value="What was your favorite color?">What was your favorite color?</option>
+        <option value="custom">Custom Question</option>
+    </select><br><br>
+
+    <!-- Custom Security Question Input (hidden by default) -->
+    <div id="custom-question-div" style="display: none;">
+        <label for="custom-question">Enter Custom Question:</label><br>
+        <input type="text" id="custom-question" name="custom-question"><br><br>
+    </div>
+
+    <!-- Security Answer Label and Input -->
+    <label for="sec-answer">Security Answer:</label><br>
+    <input type="text" id="sec-answer" name="sec-answer" required><br><br>
+
+    <!-- Security PIN Label and Input -->
+    <label for="sec-pin">Security PIN:</label><br>
+    <input type="password" id="sec-pin" name="sec-pin" required pattern="[0-9]{4}" title="Enter a 4-digit PIN" maxlength="4"><br>
+    <button type="button" onclick="togglePasswordVisibility('sec-pin')">👁️</button><br><br>
+
+    <!-- Create Account Button -->
+    <button type="submit">Create Account</button><br><br>
+</form>
+
+<!-- Additional Text and Password Guidelines -->
+<div>
+    <p>*Must include:</p>
+    <ul>
+        <li>30 characters maximum</li>
+        <li>Uppercase letter</li>
+        <li>Lowercase letter</li>
+        <li>Special characters</li>
+        <li>Numbers</li>
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'JavaScript/Register.js' %}"></script>
+{% endblock %}
