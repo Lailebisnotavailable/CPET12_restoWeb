@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 15px;
+        }
+        th {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        .product-info {
+            display: flex;
+            align-items: center;
+        }
+        .product-info img {
+            width: 70px;
+            height: 70px;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+        .remove-btn {
+            color: #dc3545;
+            border: none;
+            background: none;
+            font-size: 0.9em;
+            padding: 0;
+            cursor: pointer;
+        }
+        .total-price {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .checkout-btn, .back-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .checkout-btn:hover, .back-btn:hover {
+            background-color: #218838;
+        }
+        .back-btn {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #343a40;
+            color: #fff;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="d-flex justify-content-between align-items-center p-3">
+        <a href="Home-Page">
+            <img src='{% static "Media/ASMR-logo.jpg" %}' height="50" width="90" alt="Return to Home">
+        </a>
+        <a href="Profile">
+            <img src='{% static "Media/profile.png" %}' height="50" width="50" alt="Account">
+        </a>
+    </header>
+
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Dish</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sub-total</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                {% for item in cart_items %}
+                <tr data-item-id="{{ item.id }}">
+                    <td class="product-info">
+                        <img src="{{ item.image_url }}" alt="{{ item.name }}">
+                        <div>
+                            <p class="font-weight-bold">{{ item.name }}</p>
+                            <p class="text-muted">{{ item.description }}</p>
+                        </div>
+                    </td>
+                    <td class="price" data-price="{{ item.price }}">{{ item.price }}</td>
+                    <td>
+                        <input type="number" class="form-control quantity" value="{{ item.quantity }}" min="1" onchange="updateSubtotal(this)">
+                    </td>
+                    <td class="subtotal">{{ item.price|floatformat:2 }}</td>
+                    <td><button class="remove-btn" onclick="removeItem(this)">Remove</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            <p>Total: <span id="total-price">0</span></p>
+        </div>
+
+        <form action="Checkout" method="get">
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </form>
+        
+        <form action="Menu" method="get">
+            <button class="back-btn">Back to Menu</button>
+        </form>
+    </div> 
+
+    <footer>
+        <p>&copy; 2024 A.S.M.R. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function updateSubtotal(input) {
+            const row = input.closest('tr');
+            const quantity = parseInt(input.value);
+            const price = parseFloat(row.querySelector('.price').dataset.price);
+            const subtotal = quantity * price;
+
+            row.querySelector('.subtotal').textContent = subtotal.toFixed(2);
+            updateTotal();
+        }
+
+        function removeItem(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.subtotal').forEach(subtotalElement => {
+                total += parseFloat(subtotalElement.textContent);
+            });
+            document.getElementById('total-price').textContent = total.toFixed(2);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateTotal);
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.7/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
