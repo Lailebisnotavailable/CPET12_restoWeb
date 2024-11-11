@@ -1,0 +1,12 @@
+Menu 
+- Redirect to Food Display
+
+Food Display
+- Add quantity and add the item to cart
+
+Cart
+- display all added items from food display 
+- Add to checkout 
+
+Checkout (Tentative since log in is required)
+- Display in Cashier table
