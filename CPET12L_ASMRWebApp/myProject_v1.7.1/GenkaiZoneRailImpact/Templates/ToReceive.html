@@ -1,0 +1,180 @@
+{% extends "Header-Footer_In.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Receive Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2;
+            margin: 0;
+            padding: 0;
+            color: #4b2e2a;
+        }
+
+        header {
+            background-color: #8c5b4c;
+            color: #fff;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #d6b69e;
+            color: #4b2e2a;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f3e9e4;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-received {
+            background-color: #4b2e2a;
+        }
+
+        .btn-not-received {
+            background-color: #bf7264;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>To Receive Orders</header>
+    <div class="container">
+        {% if checkout_contents %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Ordered Foods</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in checkout_contents %}
+                    <tr>
+                        <td><p class="dismissed" id="order_id">{{ item.OrderID }}</p></td>
+                        <td><p>{{ item.OrderedFood }}</p></td>
+                        <td><p>{{ item.Status }}</p></td>
+                        <td>
+                            <button class="btn btn-received">Received</button>
+                            <button class="btn btn-not-received">Not Received</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No orders available at the moment.</p>
+        {% endif %}
+    </div>
+</body>
+<script>
+    // Grab all buttons with the class "btn-received" and "btn-not-received"
+    const receivedButtons = document.querySelectorAll('.btn-received');
+    const notReceivedButtons = document.querySelectorAll('.btn-not-received');
+
+    receivedButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            var userConfirmed = confirm("Would you like to confirm that you received your food?");
+            if (userConfirmed) {
+                // Get the parent row of the clicked button
+                let row = button.closest('tr');
+                let variableElement = row.querySelector('.dismissed');
+                let variableValue = variableElement.textContent;
+                console.log(variableValue);  // Check the value
+
+                // AJAX stuff
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{% url 'do_tag_receive' %}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                // Send the data as JSON
+                xhr.send(JSON.stringify({ variable: variableValue }));
+                alert("Thank you for using our WEBAPP! Enjoy your food! :3")
+                location.reload();
+                }
+            else {
+
+            }
+        });
+    });
+
+    notReceivedButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            var userConfirmed = confirm("Would you like to confirm that you have not received your food?");
+            if (userConfirmed) {
+                // Get the parent row of the clicked button
+                let row = button.closest('tr');
+                let variableElement = row.querySelector('.dismissed');
+                let variableValue = variableElement.textContent;
+                console.log(variableValue);  // Check the value
+
+                // AJAX stuff
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{% url 'do_tag_notreceive' %}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                // Send the data as JSON
+                xhr.send(JSON.stringify({ variable: variableValue }));
+                alert("Sorry if your food didn't make it. Please wait for a few minutes for a refund.")
+                location.reload();
+                }
+            else {
+
+            }
+        });
+    });
+</script>
+
+{% endblock %}

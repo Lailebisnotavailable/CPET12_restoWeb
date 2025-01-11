@@ -1,0 +1,90 @@
+{% extends "Header-Footer_In.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} m-2 d-flex justify-content-between align-items-center" id="msg" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close" style="background-color: transparent; border: none; opacity: 1; font-size: 1.25rem;" aria-label="Close" onclick="document.getElementById('msg').remove();">&times;</button>
+        </div>
+   {% endfor %}
+{% endif %}
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/Menu.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/FoodDis.css' %}">
+</head>
+
+    <div class="container">
+        <!-- Sorting Buttons Section -->
+        <form method="get" class="sort-buttons-container">
+            <button type="submit" name="sort" value="appetizer" class="sort-button appetizer">Appetizers</button>
+            <button type="submit" name="sort" value="main dish" class="sort-button main-dish">Main Dish</button>
+            <button type="submit" name="sort" value="drinks" class="sort-button drinks">Drinks</button>
+            <button type="submit" name="sort" value="dessert" class="sort-button dessert">Dessert</button>
+        </form>
+    
+        <!-- Search Bar Section -->
+        <form method="get" class="search-line-container">
+            <input type="text" class="search-line" name="search" placeholder="Search..." value="{{ request.GET.search }}">
+        </form>
+    </div>
+    
+    <!-- Horizontal Line Below Sort Buttons -->
+    <hr class="horizontal-line">
+
+
+    <!-- Dynamic Carousel Section -->
+    <h1 style="color: black;">MENU</h1>
+    <section class="carousel-container">
+        {% if food_items %}
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for food in food_items %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            <!-- Start a new carousel item for every 3 items -->
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="row">
+                        {% endif %}
+                        
+                        <!-- Food Item Button (with Gradient) -->
+                        <div class="col-4">
+                            <button type="button" class="d-block w-100 carousel-image-button gradient-button" onclick="window.location.href='{% url 'FoodDis' FoodId=food.FoodId %}'">
+                                <div class="carousel-image-wrapper">
+                                    <img src="{{ food.FoodImage.url }}" class="d-block w-100" alt="{{ food.FoodName }}" style="height: 300px; object-fit: cover;">
+                                    <div class="carousel-caption-overlay">
+                                        <h5>{{ food.FoodName }}</h5>
+                                        <p><strong>PHP{{ food.FoodPrice }}</strong></p>
+                                        <p>FoodItem ID: {{ food.FoodId }}</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+        
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                </div> <!-- Close the row -->
+                            </div> <!-- Close the carousel-item -->
+                        {% endif %}
+                    {% endfor %}
+                </div>
+        
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% else %}
+            <p>No food items found for this search.</p>
+        {% endif %}
+    </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'JavaScript/Menu.js' %}"></script>
+{% endblock %}

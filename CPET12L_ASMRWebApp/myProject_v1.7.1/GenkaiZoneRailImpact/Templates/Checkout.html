@@ -1,0 +1,143 @@
+{% extends 'Header-Footer_In.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/Cart.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/FoodDis.css' %}">
+</head>
+
+<section>
+    <p>Need Help? <a href="{% url 'FAQs' %}">Click Here</a></p>
+</section>
+<div class="container">
+    <!-- Buyer Information -->
+    <div class="buyer-info">
+        <h3>Buyer Information</h3>
+        <p><strong>Name:</strong> {{ first_name }} {{ last_name }}</p>
+        <p><strong>Address:</strong>{{ block_lot }} {{ street }} {{ subdivision }} {{ barangay }} {{ city }} {{ province }} </p>
+        <p><strong>Please confirm the details below before we deliver it to your doorstep!</strong></p>
+    </div>
+    <table id="table" border="1" width="100%" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody id="cart-items">
+            {% for item in user_cart_content %}
+            <tr data-item-id="{{ item.CartID }}">
+                <td class="product-info">
+                    <img src="{{ item.FoodID.FoodImage.url }}" alt="{{ item.FoodID.FoodName }}">
+                    <div>
+                        <p hidden>{{ item.CartID }}</p>
+                        <p class="idofthefood">{{  item.FoodID.FoodId  }}</p>
+                        <p class="font-weight-bold">{{ item.FoodID.FoodName }}</p>
+                    </div>
+                </td>
+                <td class="price" data-price="{{ item.FoodID.FoodPrice }}">
+                    {{ item.FoodID.FoodPrice }}
+                </td>
+                <td>
+                    <p class="quantity_in_input" value="{{ item.Quantity }}">{{ item.Quantity }}</p>
+                </td>
+                <td class="subtotal">
+                    <!-- Initially empty, will be filled by JavaScript -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Table for Product Details -->
+
+    <div class="total-price">
+        <p>Total: <span id="total-price">0</span></p>
+    </div>
+    <p id="balance">Your balance is: {{ user_wallet_content }}</p>
+    <p id="rawbalance" hidden>{{ user_wallet_content }}</p>
+    <p id="rawtotal" hidden>0</p>
+    <button type="button" onclick="handleSubmit()">Check Out</button>
+
+    <!-- Hidden form to submit data -->
+    <form id="checkout-form" action="{% url 'HandleCheckout' %}" method="POST" style="display:none;">
+        {% csrf_token %}
+        <input type="hidden" name="food_id" id="food_id">
+        <input type="hidden" name="cart_data" id="cart_data">
+        <input type="hidden" name="total_price" id="total_price_hidden">
+        <input type="hidden" name="user_balance" id="user_balance_hidden">
+    </form>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('.subtotal').forEach(subtotalElement => {
+            total += parseFloat(subtotalElement.textContent);
+        });
+        document.getElementById('total-price').textContent = total.toFixed(2);
+        document.getElementById('rawtotal').textContent = total.toFixed(2);
+    }
+
+    // Function to calculate and update the subtotal
+    function calculateSubtotal() {
+        const rows = document.querySelectorAll('#cart-items tr');
+        
+        rows.forEach(row => {
+            const priceElement = row.querySelector('.price');
+            const quantityElement = row.querySelector('.quantity_in_input');
+            const subtotalElement = row.querySelector('.subtotal');
+            
+            const price = parseFloat(priceElement.dataset.price); // Get price from data attribute
+            const quantity = parseInt(quantityElement.innerText); // Get quantity
+            
+            const subtotal = price * quantity;
+
+            subtotalElement.innerText = subtotal.toFixed(2);
+        });
+        updateTotal();
+    }
+
+    // Call the function to update the subtotal when the page loads
+    window.onload = calculateSubtotal;
+
+    function handleSubmit() {
+        var user_balance = parseFloat(document.getElementById("rawbalance").textContent);
+        var total_price = parseFloat(document.getElementById("rawtotal").textContent);
+        
+        if (user_balance >= total_price) {
+            alert("Your order is now being processed! Please check 'To Receive' page for more info.");
+            
+            // Gather the data
+            let cartData = [];
+            document.querySelectorAll('#cart-items tr').forEach(row => {
+                let foodId = row.querySelector('.idofthefood').textContent;
+                let foodName = row.querySelector('.font-weight-bold').textContent;
+                let price = parseFloat(row.querySelector('.price').dataset.price);
+                let quantity = parseInt(row.querySelector('.quantity_in_input').innerText);
+                let subtotal = parseFloat(row.querySelector('.subtotal').innerText);
+                
+                cartData.push({ foodId, foodName, price, quantity, subtotal });
+            });
+
+            // Set the data in the hidden form
+            document.getElementById('cart_data').value = JSON.stringify(cartData);
+            document.getElementById('total_price_hidden').value = total_price.toFixed(2);
+            document.getElementById('user_balance_hidden').value = user_balance.toFixed(2);
+
+            // Submit the form
+            document.getElementById('checkout-form').submit();
+        } else {
+            var userConfirmed = confirm("Oops! Insufficient balance to make the purchase. Would you like to go to top up page?");
+            if (userConfirmed) {
+                window.location.href = "{% url 'TopUp' %}";
+            } else {
+                alert("Get balance by clicking the '+' icon in top left of our page!");
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'CSS/Admin.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/Profile.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/Header-Footer-In.css' %}">
+</head>
+<body>
+ 
+<!-- Header section with logo button, search bar, and image buttons -->
+<header class="header-container container-fluid">
+    <div class="row align-items-center w-100">
+        <!-- Leftmost section for Logo Button and Greeting -->
+        <div class="col-md-8 d-flex align-items-center header-left">
+            <a href="#top" class="logo-button">
+                <img src='{% static "Media/ASMR-logo.jpg" %}' height="45" width="100" alt="Home Page">
+            </a>    
+              
+<!-- Greeting Label ccccccccccccccccccc-->
+        {% if request.session.FirstName and request.session.LastName and request.session.AccountType %}
+        <label class="greeting-label">
+            Hello, {{ request.session.AccountType }} {{ request.session.FirstName }} {{ request.session.LastName }} !
+        </label>
+        {% else %}
+        <label class="greeting-label">
+            Welcome, Guest!
+        </label>
+        {% endif %}
+<!-- Greeting Label ccccccccccccccccccc-->
+    </div>
+
+        <!-- Rightmost section for profile buttons -->
+        <div class="col-md-4 d-flex justify-content-end align-items-center right-section">
+    
+            <form action="{% url 'SignOut' %}" method="post" style="display: inline-flex; align-items: center; margin: 0;">
+                {% csrf_token %}
+                <button class="sign-out-button" type="submit"> <!-- Change type to submit -->
+                    <img src="{% static 'Media/sign-out.png' %}" alt="Sign out" class="icon-button">
+                </button>
+            </form>
+            
+        </div>
+    </div>
+</header>
+
+<script src="{% static 'JavaScript/Header-Footer-In.js' %}"></script>
+
+<!-- Main content block -->
+<main>
+    {% block content %}{% endblock %}
+    {% block extra_scripts %}{% endblock %}
+</main>
+
+<!-- Footer section -->
+<footer class="footer bg-dark text-light py-5">
+    <div class="footer-container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h4>About Us</h4>
+                <p>
+                    Welcome to ASMR Restaurant, where we offer a unique dining experience with the finest cuisine. Our mission is to provide delicious, high-quality food that satisfies your cravings.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h4>Contact Us</h4>
+                <p><i class="fa fa-map-marker-alt"></i> Address: 123 ASMR St, Food City</p>
+                <p><i class="fa fa-phone"></i> Phone: +1 234 567 890</p>
+                <p><i class="fa fa-envelope"></i> Email: info@asmrrestaurant.com</p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h4>Follow Us</h4>
+                <p>
+                    <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-youtube"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 ASMR Restaurant | All Rights Reserved</p>
+    </div>
+</footer>
+
+</body>
+</html>

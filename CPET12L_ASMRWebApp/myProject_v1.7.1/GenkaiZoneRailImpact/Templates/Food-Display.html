@@ -1,0 +1,53 @@
+{% extends "Header-Footer_In.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/FoodDis.css' %}">
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Image Section -->
+        <div class="food-image">
+            <img src="{{ food_item.FoodImage.url }}" alt="{{ food_item.FoodName }}" style="width:300px; height:300px;">
+        </div>
+
+        <!-- Details Section -->
+        <div class="details">
+            <!-- Back Button -->
+            <form action="{% url 'Menu' %}" method="get">
+                <button type="submit" class="back-btn">Back to Menu</button>
+            </form>
+            
+            <!-- Food Name and Description -->
+            <h2>{{ food_item.FoodName }}</h2>
+            <p>{{ food_item.FoodDescription }}</p>
+            <p><strong>Price: ₱{{ food_item.FoodPrice }} </strong></p>
+
+            <!-- Display any messages -->
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            <!-- Add to Cart Button -->
+             <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+            <button type="button" class="add-to-cart-btn" data-food-id="{{ food_item.FoodId }}" data-user-id="{{ user_id }}">Add to Cart</button>
+            <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+        </div>
+    </div>
+
+    <div class="feedback-section">
+        <h3>Rating</h3>
+        <img src="star.png" style="width:35px; height:35px;">
+        <p>{{ food_item.FoodRating }} / 5</p>
+    </div>
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <script src="{% static 'JavaScript/Food-Display.js' %}"></script>
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+</body>
+{% endblock %}

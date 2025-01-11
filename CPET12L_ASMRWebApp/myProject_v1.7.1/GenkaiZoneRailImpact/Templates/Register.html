@@ -1,0 +1,171 @@
+{% extends "Header-Footer.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="register-wrapper">
+    <a href="{% url 'Log-In' %}" class="return-btn">
+        <img src="{% static 'Media/left-arrow.png' %}" alt="Return to Login" class="return-login-btn">
+        Return to Login
+    </a>
+    <h2>Let's get you started</h2>
+    <div id="error-message">
+        {% if error_message %}
+            <span class="error-message">{{ error_message }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <form action="{% url 'Register' %}" method="POST">
+            {% csrf_token %}
+            
+            <!-- Acccount Type -->
+            <div>
+                <label for="account-type">Account Type:</label>
+                <label class="input-instruction"><i>(Choose your account role.)</i></label>
+                <select id="account-type" name="account-type" required autofocus>
+                    <option value="" disabled selected>Select an account role</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Cashier">Cashier</option>
+                </select>
+            </div>            
+            
+            <!-- First Name Label and Input -->
+            <div>
+                <label for="first-name">First name:</label>
+                <label class="input-instruction"><i>(Enter your first name. Letters Only)</i></label>
+                <input type="text" id="first-name" name="first-name" required pattern="[A-Za-z ]+" oninput="restrictLettersOnly(this)">
+            </div>
+
+            <!-- Last Name Label and Input -->
+            <div>
+                <label for="last-name">Last name:</label>
+                <label class="input-instruction"><i>(Enter your last name.  Letters Only)</i></label>
+                <input type="text" id="last-name" name="last-name" required pattern="[A-Za-z ]+" oninput="restrictLettersOnly(this)">
+            </div>
+
+            <!-- Email Label and Input -->
+            <div>
+                <label for="email">Email:</label>
+                <label class="input-instruction"><i>(Enter a valid email.)</i></label>
+                <input type="email" id="email" name="email" required >
+            </div>
+
+            <!-- Password Label and Input with Toggle Visibility -->
+            <div class="password-field">
+                <label for="password">Password:</label>
+                <label class="input-instruction"><i>(Min. 8 characters, 1 uppercase, 1 number, 1 special char.)</i></label>
+                <input type="password" id="password" name="password" 
+                    title="Password must be at least 8 characters long, include one uppercase letter, one lowercase letter, one number, and one special character (e.g., @, #, !)">
+                    <button type="button" onclick="togglePasswordVisibility('password')" class="toggle-visibility password-toggle-btn" aria-label="Toggle password visibility">
+                        <img src="{% static 'Media/closed-eye.png' %}" alt="Toggle password visibility" class="icon-image">
+                    </button>
+            </div>
+            
+            <!-- Confirm Password Label and Input with Toggle Visibility -->
+            <div class="password-field">
+                <label for="confirm-password">Confirm Password:</label>
+                <label class="input-instruction"><i>(Re-enter your Password.)</i></label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <button type="button" onclick="togglePasswordVisibility('confirm-password')" class="toggle-visibility password-toggle-btn" aria-label="Toggle password visibility">
+                    <img src="{% static 'Media/closed-eye.png' %}" alt="Toggle password visibility" class="icon-image">
+                </button>           
+            </div>
+
+            <!-- Birthday Label and Input -->
+            <div>
+                <label for="birthday">Birthday:</label>
+                <label class="input-instruction"><i>(Enter your birthday.)</i></label>
+                <input type="date" id="birthday" name="birthday" required>
+            </div>
+
+            <!-- Contact Number Label and Input -->
+            <div>
+                <label for="contact-number">Contact Number:</label>
+                <span class="input-instruction"><i>(Enter an 11-digit valid contact number.)</i></span>
+                <input type="text" id="contact-number" name="contact-number" required pattern="[0-9]{11}" title="Enter a valid 11-digit phone number" oninput="restrictNumbersOnly(this)" maxlength="11">
+            </div>
+
+            <!-- Create Account Button -->
+            <button type="submit" class="submit-btn" onclick="return confirmSubmit()">Create Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+    const openEyeImage = "{% static 'Media/open-eye.png' %}";
+    const closedEyeImage = "{% static 'Media/closed-eye.png' %}";
+
+    
+    function confirmSubmit() {
+    const form = document.querySelector('form'); // Adjust selector for your form
+    const accountType = document.getElementById('account-type');
+    const firstName = document.getElementById('first-name');
+    const lastName = document.getElementById('last-name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
+    const birthday = document.getElementById('birthday');
+    const contactNumber = document.getElementById('contact-number');
+    
+
+    // Helper function to show an alert and return false
+    const showAlert = (message) => {
+        alert(message);
+        return false;
+    };
+
+    // Validate all fields
+    if (!accountType.value) return showAlert("Please select an account type.");
+    if (!firstName.value.match(/^[A-Za-z ]+$/)) return showAlert("First name must contain letters only.");
+    if (!lastName.value.match(/^[A-Za-z ]+$/)) return showAlert("Last name must contain letters only.");
+    if (!email.value || !email.validity.valid) return showAlert("Please enter a valid email address.");
+    if (password.value.length < 8 || 
+        !/[A-Z]/.test(password.value) || 
+        !/[0-9]/.test(password.value) || 
+        !/[!@#$%^&*(),.?":{}|<>]/.test(password.value)) {
+        return showAlert("Password must meet the specified criteria.");
+    }
+    if (password.value !== confirmPassword.value) return showAlert("Passwords do not match.");
+    if (!birthday.value) return showAlert("Please enter your birthday.");
+    if (!contactNumber.value.match(/^\d{11}$/)) return showAlert("Contact number must be 11 digits.");
+
+    // Generate a custom confirmation prompt
+    let confirmationMessage = "Are you sure about the information you submitted? You will be registered with the information you provided.";
+    let successMessage = "";
+
+    if (accountType.value === "Customer") {
+        confirmationMessage = "Are you sure you want to register as a Customer? You can enjoy all the benefits of our web app.";
+        successMessage = "Congratulations! You are now a Customer of our web app.";
+    } else if (accountType.value === "Cashier") {
+        confirmationMessage = "Are you sure you want to register as a Cashier? Please note that your application will need admin approval.";
+        successMessage = "Your application as a Cashier has been submitted. Please wait for the admin to accept your application.";
+    }
+
+    // Show the confirmation prompt
+    if (confirm(confirmationMessage)) {
+        // Display success message
+        alert(successMessage);
+
+        // Debugging log to ensure redirection happens
+        console.log("Redirecting to login...");
+        console.log("{% url 'Log-In' %}");
+
+        // Redirect to login page
+        //event.preventDefault();
+        window.location.href = "{% url 'Log-In' %}";
+    } else {
+        alert("Kindly correct the information.");
+        return false;
+    }
+}
+    </script>
+    
+    <script src="{% static 'JavaScript/Register.js' %}"></script>
+{% endblock %}

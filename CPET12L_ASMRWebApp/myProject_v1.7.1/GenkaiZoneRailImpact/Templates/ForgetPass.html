@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            color: #555;
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="email"]:focus {
+            border-color: #4CAF50;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Forgot Password?</h2>
+        <h4>Enter your email address to reset your password</h4>
+
+        <!-- Error message (if any) -->
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <!-- Form to Submit Email -->
+        <form method="POST" action="{% url 'forget_password' %}">
+            {% csrf_token %}
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address"><br>
+
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+
+    <!-- JavaScript for notifications -->
+    <script type="text/javascript">
+        // Get messages from Django context and store them in an array
+              // Get the first message if available
+
+        // Check if the browser supports notifications
+        if ("Notification" in window) {
+            // Ask for permission if not already granted
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+
+            // Show the notification if there is a success message
+            if (successMessage && Notification.permission === "granted") {
+                var notification = new Notification("Email Sent", {
+                    body: successMessage,  // Message to show in the notification
+                    icon: "https://via.placeholder.com/50",  // Add an icon
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>

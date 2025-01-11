@@ -1,0 +1,130 @@
+{% extends "Header-Footer-Staff.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} m-2 d-flex justify-content-between align-items-center" id="msg" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close" style="background-color: transparent; border: none; opacity: 1; font-size: 1.25rem;" aria-label="Close" onclick="document.getElementById('msg').remove();">&times;</button>
+        </div>
+   {% endfor %}
+{% endif %}
+
+<h2 style="text-align: center; margin-bottom: 20px;">Customer Orders</h2>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-button">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
+    {% endif %}
+    <span class="pagination-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-button">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-button">Last &raquo;</a>
+    {% endif %}
+</div>
+<div role="tabpanel" aria-labelledby="cashier-app-tab">
+    <div class="table-container">
+        <h2>Customer Service Response</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Order ID</th>
+                    <th>Ordered Foods</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in checkout_contents %}
+                    <tr>
+                        <td><p class="customeraccid">{{ item.AccountID }}</p></td>
+                        <td><p class="dismissed" id="order_id">{{ item.OrderID }}</p></td>
+                        <td><p>{{ item.OrderedFood }}</p></td>
+                        <td><p>{{ item.Status }}</p></td>
+                        <td>
+                            <button class="btn btn-received">Refund</button>
+                            <button class="btn btn-not-received">Redeliver</button>
+                        </td>
+                    </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">No applications found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a href="{% url 'generate_pdf_view' %}" style="padding: 10px 20px; background-color: #FF7866; color: #fff; text-decoration: none; border-radius: 5px;">Generate Full Report</a>
+
+    <br>
+<script>
+    // Grab all buttons with the class "btn-received" and "btn-not-received"
+        const receivedButtons = document.querySelectorAll('.btn-received');
+        const notReceivedButtons = document.querySelectorAll('.btn-not-received');
+    
+        receivedButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                var userConfirmed = confirm("Are you sure you want to refund this order?");
+                if (userConfirmed) {
+                    // Get the parent row of the clicked button
+                    let row = button.closest('tr');
+                    let variableElement = row.querySelector('.dismissed');
+                    let valueElement = row.querySelector('.customeraccid');
+                    let valueValue = valueElement.textContent;
+                    let variableValue = variableElement.textContent;
+                    console.log(variableValue);
+                    console.log(valueValue);  // Check the value
+    
+                    // AJAX stuff
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{% url 'do_refund' %}", true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+    
+                    // Send the data as JSON
+                    xhr.send(JSON.stringify({ variable: variableValue, value: valueValue }));
+                    alert("Order refunded.")
+                    location.reload();
+                    }
+                else {
+    
+                }
+            });
+        });
+    
+        notReceivedButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                var userConfirmed = confirm("Are you sure you want to redeliver this order?");
+                if (userConfirmed) {
+                    // Get the parent row of the clicked button
+                    let row = button.closest('tr');
+                    let variableElement = row.querySelector('.dismissed');
+                    let valueElement = row.querySelector('.customeraccid');
+                    let variableValue = variableElement.textContent;
+                    let valueValue = valueElement.textContent;
+                    console.log(variableValue);  // Check the value
+                    console.log(valueValue);
+    
+                    // AJAX stuff
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{% url 'do_redeliver' %}", true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+    
+                    // Send the data as JSON
+                    xhr.send(JSON.stringify({ variable: variableValue, value: valueValue }));
+                    alert("Order redelivered.")
+                    location.reload();
+                    }
+                else {
+    
+                }
+            });
+        });
+    </script>
+        
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "Header-Footer_In.html" %}
+{% load static %}
+
+{% block content %}
+<header>
+    <link rel="stylesheet" href="{% static 'CSS/TopUp.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/Menu.css' %}">
+</header>
+    <div class="container">
+        <h1>Welcome to Food Wallet Top-Up</h1>
+        <aside class="info-panel">
+            <h2>How It Works</h2>
+            <p>1. Check your current balance.</p>
+            <p>2. Enter the amount you want to top up.</p>
+            <p>3. Press "Top-Up Now" to add funds to your Food Wallet.</p>
+            <p>4. Once successful, you can use your Food Wallet balance to pay for orders seamlessly.</p>
+        </aside>
+
+        <main class="topup-container">
+            <h2>Top-Up Your Food Wallet</h2>
+            <div class="wallet-section">
+                <label for="wallet-balance">Current Balance:</label>
+                <div class="wallet-balance" id="wallet-balance">₱{{ user_wallet_content }}</div>
+            </div>
+
+            <form class="topup-form" id="topupForm" method="POST">
+                {% csrf_token %}
+                <label for="topup-amount">Top-Up Amount (Minimum ₱20):</label>
+                <input type="number" id="topup-amount" name="topup-amount" placeholder="Enter amount" min="20" required>
+                <button type="submit" class="topup-btn">Top-Up Now</button>
+            </form>
+
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h2>Top-Up Successful!</h2>
+            <p>Your e-wallet has been topped up successfully.</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // This function will handle the form submission using AJAX
+        $(document).ready(function(){
+            $("#topupForm").submit(function(event){
+                event.preventDefault(); // Prevent the form from reloading the page
+
+                var topupAmount = $("#topup-amount").val();
+                
+                // Make sure the top-up amount is valid
+                if(topupAmount < 20) {
+                    alert("The minimum top-up amount is ₱20.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'topup_to_user' %}",  // Change 'your_topup_view' to your actual view's URL name
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'topup-amount': topupAmount
+                    },
+                    success: function(response) {
+                        // Assuming you have a response back from the view (you can return a JSON response in your view)
+                        if (response.success) {
+                            alert("Top-up Successful!");
+                            // Optionally, you can update the wallet balance here
+                            $("#wallet-balance").text("₱" + response.new_balance);
+                            $("#userwallet").text("Food Wallet Balance: ₱" + response.new_balance);
+                        } else {
+                            alert("Top-up failed. Please try again.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("An error occurred. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Report of App Transactions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section-title {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 30px;
+        }
+        .table-container {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .table-container th, .table-container td {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .table-container th {
+            background-color: #f4f4f4;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+        img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dishes Selected, Viewed, Purchased</h1>
+    <h4>The Month of January</h4>
+
+
+    <!-- Food Items Section -->
+    <div class="section-title">
+        <h2>Registered Dishes</h2>
+    </div>
+    <table class="table-container">
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Rating</th>
+                <th>Views</th>
+                <th>Image</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in food_items %}
+                <tr>
+                    <td>{{ food.FoodName }}</td>
+                    <td>{{ food.FoodCategory }}</td>
+                    <td>${{ food.FoodPrice }}</td>
+                    <td>{{ food.FoodDescription }}</td>
+                    <td>{{ food.FoodRating }}</td>
+                    <td>{{ food.FoodViews }}</td>
+                    <td>
+                        {% if food.FoodImage %}
+                            <img src="{{ food.FoodImage.url }}" alt="{{ food.FoodName }}">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                    <td>{{ food.DateAdded }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8">No food items available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Accounts Information Section -->
+    <div class="section-title">
+        <h2>Checkout Information</h2>
+        <h4>The Month of January</h4>
+    </div>
+    <table class="table-container">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for checkout in checkout_info %}
+                <tr>
+                    <td>{{ checkout.OrderID }}</td>
+                    <td>{{ checkout.Quantity }}</td>
+                    <td>{{ checkout.Status }}</td>
+            {% empty %}
+                <tr>
+                    <td colspan="8">App Report is unofficial. Refer to the Admin/Owner for more details.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

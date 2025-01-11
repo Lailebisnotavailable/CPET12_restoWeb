@@ -1,0 +1,201 @@
+{% extends "Header-Footer_In.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/Cart.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/FoodDis.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Food Cart</h1>
+        
+        <!-- Container for the cart content (either table or empty message) -->
+        <div id="cart-container">
+            <!-- Empty cart message, initially hidden -->
+            <div id="empty-cart-message" style="display: none;">
+                <p>When u order the food gets sent here :>.</p>
+            </div>
+            
+            <!-- Table with cart items -->
+            <table class="table table-hover" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Dish</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Sub-total</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    {% for item in user_cart_content %}
+                    <tr data-item-id="{{ item.CartID }}">
+                        
+                        <td class="product-info">
+                            <img src="{{ item.FoodID.FoodImage.url }}" alt="{{ item.FoodID.FoodName }}">
+                            <div>
+                                <p hidden class="roberto" id="carts_id">{{ item.CartID }}</p>
+                                    <p class="font-weight-bold">{{ item.FoodID.FoodName }}</p>
+                            </div>
+                        </td>
+                        <td class="price" data-price="{{ item.FoodID.FoodPrice }}">{{ item.FoodID.FoodPrice }}</td>
+                        <td>
+                            <input type="number" id="numberInput" class="quantity_in_input" value="{{ item.Quantity }}" min="1" onchange="updateSubtotal(this)">
+                        </td>
+                        <td class="subtotal">{{ Subtotal | floatformat:2 }}</td>
+                        <td><button class="remove-btn" data-cart-id="{{ item.CartID }}" onclick="removeItem(this)">Remove</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-price">
+            <p>Total: <span id="total-price">0</span></p>
+        </div>
+
+        <div class="button-container">
+            <form action="Menu" method="get" style="width: 48%;">
+                <button class="back-btn">Back to Menu</button>
+            </form>
+            <form style="width: 48%; margin-right: 5%;">
+                <button id="checkout" class="checkout-btn" onclick="confirmAction()" style="width: 48%; margin-right: 5%;">Proceed to Checkout</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // When quantity changes, save in db
+    const inputs = document.querySelectorAll('.quantity_in_input');
+
+    // Loop over each input to attach event listeners
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            var inputValue = this.value;  // Get the current input value
+
+            // Find the closest row (<tr>) containing this input
+            let row = this.closest('tr');
+            
+            // Find the .carts_id element inside the same row
+            let variableElement = row.querySelector('.roberto');
+            
+            if (variableElement) {
+                let variableValue = variableElement.textContent;  // Get the variable from the row's .carts_id element
+
+                // Send the new value to the server via AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{% url 'update_quantity_value' %}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                // Send the data as JSON
+                xhr.send(JSON.stringify({ value: inputValue, variable: variableValue }));
+
+                // Optional: handle the response if needed
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        console.log("Value saved successfully");
+                    } else {
+                        console.log("Error saving value");
+                    }
+                };
+            } else {
+                console.log("Error: .carts_id not found in this row.");
+            }
+        });
+    });
+
+        function confirmAction() {
+    var userConfirmed = confirm("Would you like to proceed to checkout?");
+    if (userConfirmed) {
+      // User clicked "Yes"
+      event.preventDefault();
+      window.location.href = "{% url 'Checkout' %}";
+      
+      
+      // Perform your Django action here, like submitting a form or calling an API
+    } else {
+      // User clicked "No"
+    }
+        }
+
+        // Function to remove an item and update the total and subtotals
+        function removeItem(button) {
+            const row = button.closest('tr');  // Find the closest <tr> element (the item row)
+              // Remove the row from the table
+            updateTotal();  // Recalculate the total after removing the item
+        }
+
+        // Function to update the total price
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.subtotal').forEach(subtotalElement => {
+                total += parseFloat(subtotalElement.textContent);
+            });
+            document.getElementById('total-price').textContent = total.toFixed(2);
+
+            // Check if the cart is empty after updating the total
+            checkIfCartIsEmpty();
+        }
+
+        // Function to update the subtotal when quantity changes
+        function updateSubtotal(input) {
+            const row = input.closest('tr');
+            const quantity = parseInt(input.value);
+            const price = parseFloat(row.querySelector('.price').dataset.price);
+            const subtotal = quantity * price;
+            row.querySelector('.subtotal').textContent = subtotal.toFixed(2);
+            updateTotal();
+            // run the jscript that saves quantity
+        }
+
+        // Function to check if the cart is empty
+        function checkIfCartIsEmpty() {
+            const cartItems = document.querySelectorAll('#cart-items tr');
+            const cartContainer = document.getElementById('cart-container');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartTable = document.getElementById('cart-table');
+            const checkoutButton = document.getElementById('checkout');
+
+            if (cartItems.length === 0) {
+                // Show empty cart message and hide the table
+                emptyCartMessage.style.display = 'block';
+                cartTable.style.display = 'none';
+                checkoutButton.style.display = 'none';
+
+            } else {
+                // Hide empty cart message and show the table
+                emptyCartMessage.style.display = 'none';
+                cartTable.style.display = 'table';
+                checkoutButton.style.display = 'button';
+            }
+        }
+
+        // Event listener to ensure the DOM is fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize subtotals on page load
+            document.querySelectorAll('.quantity_in_input').forEach(input => {
+                updateSubtotal(input); // This will calculate subtotal based on initial quantity
+            });
+
+            // Initialize total price on page load
+            updateTotal();
+
+            // Attach updateSubtotal to all quantity inputs
+            document.querySelectorAll('.quantity_in_input').forEach(input => {
+                input.addEventListener('change', function() {
+                    updateSubtotal(this);
+                });
+            });
+
+            // Check if cart is empty on page load
+            checkIfCartIsEmpty();
+        });
+    </script>
+    <script src="{% static 'JavaScript/Cart.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.7/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
+<!-- Dear Esteemed Friend Salinas, Pls copy this entire file. Thank you very much. -->

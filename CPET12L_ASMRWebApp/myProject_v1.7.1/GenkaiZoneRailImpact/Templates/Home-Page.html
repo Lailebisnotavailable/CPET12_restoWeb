@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMR</title>
+    <link rel="stylesheet" href="{% static 'CSS/Home-Page.css' %}"> <!-- Link to the external CSS file -->
+</head>
+
+<body>
+    <!-- Registration Links aligned horizontally -->
+    <div class="auth-buttons">
+        <form action='LogIn' method="get">
+            <button type="submit">Log In</button>
+        </form>
+        <form action='Register' method="get">
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- Background video -->
+    <video autoplay muted loop id="background-video">
+        <source src='{% static "Media/Home-Page-Load.mp4" %}' type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Header with an image and sign-in/sign-up buttons -->
+    <header>
+        <img src='{% static "Media/ASMR-logo.png" %}' height="150" width="190" alt="Shop Logo">
+    </header>
+
+    <!-- Sign In Form with ORDER NOW button -->
+    <div class="order-button">
+        <form action="LogIn" method="get">
+            <button type="submit">ORDER NOW!</button>
+        </form>
+    </div>
+
+    <br>
+
+    <footer>
+        <p>&copy; 2024 All rights reserved</p>
+    </footer>
+
+</body>
+</html>

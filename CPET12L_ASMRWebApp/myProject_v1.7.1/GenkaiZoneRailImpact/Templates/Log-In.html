@@ -1,0 +1,77 @@
+{% extends "Header-Footer.html" %}  <!-- Base Template -->
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <!-- Main Content with Light Yellow Background -->
+    <section class="login-container">
+        <a href="{% url 'warp' %}" class="return-btn">
+            <img src="{% static 'Media/left-arrow.png' %}" alt="Return to Login" class="return-login-btn">
+            Return to Home Page
+        </a>
+        <header>
+            <h1>Hungry? Login now!</h1>
+        </header>
+
+        {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+        {% endif %}
+
+        <!-- Sign In Form -->
+        <form action="LogIn" method="POST" aria-labelledby="login-form">
+            {% csrf_token %}
+            <fieldset>
+
+                <!-- Email Label and Input -->
+                <div class="form-group">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" required class="form-input">
+                </div>
+
+                <!-- Password Label and Input -->
+                <div class="form-group">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" required class="form-input">
+                    <span id="toggleVisibility" 
+                    style="cursor: pointer; color: rgb(0, 0, 0); margin-left: 10px; text-decoration: underline;" 
+                    onclick="togglePasswordVisibility()">Show Password</span>                
+                </div>
+
+                <!-- Sign In Button -->
+                <button type="submit" class="submit-btn">Sign In</button>
+            </fieldset>
+        </form>
+
+        <!-- Registration and Forgot Password Links -->
+        <nav>
+            <ul>
+                <li><a href="ForgetPass">Forgot Password?</a></li>
+                <li><a href="Register">Don't have an account? Register here.</a></li>
+            </ul>
+        </nav>
+    </section>
+{% endblock %}
+
+{% block extra_scripts %}
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var toggleText = document.getElementById("toggleVisibility");
+        
+        // Toggle the password visibility
+        if (passwordField.type === "password") {
+            passwordField.type = "text";  // Show password
+            toggleText.textContent = "Hide Password";  // Change the toggle text to "Hide"
+        } else {
+            passwordField.type = "password";  // Hide password
+            toggleText.textContent = "Show Password";  // Change the toggle text to "Show"
+        }
+    }
+</script>
+{% endblock %}

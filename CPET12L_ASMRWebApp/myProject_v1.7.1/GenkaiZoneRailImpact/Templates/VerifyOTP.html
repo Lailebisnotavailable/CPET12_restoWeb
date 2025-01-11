@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="email"], input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Notification Styles */
+        .notification {
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Verify OTP</h2>
+
+    {% if error %}
+        <div class="notification error">{{ error }}</div>
+    {% endif %}
+    
+    {% if success %}
+        <div class="notification success">{{ success }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="email" name="email" required placeholder="Enter your registered email">
+        
+        <label for="otp">Enter OTP:</label>
+        <input type="text" name="otp" required placeholder="Enter the OTP sent to your email">
+        
+        <button type="submit">Verify OTP</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ASMR{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'CSS/LogIn.css' %}">
+</head>
+
+<body>
+    <!-- Header Section (Navbar) -->
+    <header>
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src="{% static 'Media/ASMR-logo.png' %}" height="50px" width="90px" alt="Footer Logo Button">
+            </button>
+        </form>    
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+            {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <form action="Home-Page" method="get">
+            <button type="submit">
+                <img src="{% static 'Media/ASMR-logo.png' %}" height="50px" width="90px" alt="Footer Logo Button">
+            </button>
+        </form>
+        <p>&copy; 2024 All rights reserved</p>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

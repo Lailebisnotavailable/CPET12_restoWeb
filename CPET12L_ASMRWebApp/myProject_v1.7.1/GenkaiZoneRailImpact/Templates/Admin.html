@@ -1,0 +1,193 @@
+{% extends "Header-Footer-Staff.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<main>
+<!-- messages cccccccccccccccccccccccccccccccccccccccccccccccccccc-->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} m-2 d-flex justify-content-between align-items-center" id="msg" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close" style="background-color: transparent; border: none; opacity: 1; font-size: 1.25rem;" aria-label="Close" onclick="document.getElementById('msg').remove();">&times;</button>
+        </div>
+   {% endfor %}
+{% endif %}
+<!-- messages cccccccccccccccccccccccccccccccccccccccccccccccccccc-->
+
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="add-dish-tab" data-bs-toggle="tab" href="#add-dish" role="tab" aria-controls="add-dish" aria-selected="true">Menu Editing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="cashier-app-tab" data-bs-toggle="tab" href="#cashier-app" role="tab" aria-controls="cashier-app" aria-selected="false">Cashier Application</a>
+        </li>
+    </ul>
+
+    <!-- Tabs Content -->
+    <div class="tab-content" id="adminTabsContent">
+        <!-- Add Dish Tab -->
+        <div class="tab-pane fade show active" id="add-dish" role="tabpanel" aria-labelledby="add-dish-tab">
+            <div class="tab-container">
+                <h2>Add New Dish</h2>
+                <form action="Admin" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td><label for="dishName">Dish Name:</label></td>
+                            <td><input type="text" id="dishName" name="dishName" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="dishCategory">Category:</label></td>
+                            <td>
+                                <select id="dishCategory" name="dishCategory" required>
+                                    <option value="Appetizer">Appetizer</option>
+                                    <option value="Main Dish">Main Dish</option>
+                                    <option value="Dessert">Dessert</option>
+                                    <option value="Drinks">Drinks</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="dishPrice">Dish Price (in PHP):</label></td>
+                            <td><input type="number" min=1 max=9999 id="dishPrice" name="dishPrice" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="dishDescription">Food Description:</label></td>
+                            <td><textarea id="dishDescription" name="dishDescription" rows="4" cols="50" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="dishImage">Upload Image:</label></td>
+                            <td><input type="file" id="dishImage" name="dishImage" accept="image/*" required></td>
+                        </tr>
+                    </table>
+<!-- New Add Dish button cccccccccccccccccccccccccccccccccccccccccccccccccccc-->
+                    <button class="add-dish-button" type="submit" style="display: block; margin: 0 auto;" onclick="confirmAddDish(event)">Add Dish</button>
+<!-- New Add Dish button cccccccccccccccccccccccccccccccccccccccccccccccccccc-->
+                </form>
+            </div>
+
+            <!-- Restaurant Dish List -->
+            <h2 id="toggleButton" style="cursor: pointer; text-align: center; text-decoration: underline;">
+                Restaurant Dish List
+                <span id="arrowIndicator">→</span>
+            </h2>
+            
+            <!-- Pagination Controls -->
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="pagination-button">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
+                {% endif %}
+                <span class="pagination-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="pagination-button">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-button">Last &raquo;</a>
+                {% endif %}
+            </div>
+
+            <div class="table-container">
+                <table id="dishesTable">
+                    <thead>
+                        <tr>
+                            <th>Food ID</th>
+                            <th>Image</th>
+                            <th class="sortable" data-column="name">Dish Name</th>
+                            <th class="sortable" data-column="price">Price(in PHP)</th>
+                            <th class="sortable" data-column="category">Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in page_obj %}
+                            <td>{{ item.FoodId }}</td>
+                            <td><img src="{{ item.FoodImage.url }}" alt="{{ item.FoodName }}" width="50" height="50"></td>
+                            <td class="editable" data-id="{{ item.FoodId }}" data-type="Name">{{ item.FoodName }}</td>
+                            <td class="editable" data-id="{{ item.FoodId }}" data-type="Price">{{ item.FoodPrice|floatformat:2 }}</td>
+                            <td class="editable" data-id="{{ item.FoodId }}" data-type="Category">{{ item.FoodCategory }}</td>
+                            <td>
+                                 <!-- New Save and Delete Buttons -->
+                                <button class="saveButton" style="background-color: green; color: white; border: none; 
+                                padding: 10px 20px; margin-right: 10px; cursor: pointer;">Save</button>
+                                <button class="deleteButton" style="background-color: red; color: white; border: none; 
+                                padding: 10px 20px; cursor: pointer;">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="cashier-app" role="tabpanel" aria-labelledby="cashier-app-tab">
+            <div class="table-container">
+                <h2>Cashier Application</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Applicant ID</th>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Job Title</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in cashier_applications %}
+                        <tr>
+                            <td>{{ application.ApplicantID }}</td>
+                            <td>{{ application.FirstName }} {{ application.LastName }}</td>
+                            <td>{{ application.Email }}</td>
+                            <td>Cashier</td>
+                            <td>
+                                <form action="{% url 'process_application' %}" method="POST" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="applicant_id" value="{{ application.ApplicantID }}">
+                                    <button type="submit" name="action" value="approve" class="approve-button" onclick="confirmApprove(event)">Approve</button>
+                                    <button type="submit" name="action" value="reject" class="reject-button" onclick="confirmReject(event)">Reject</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center;">No applications found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'JavaScript/Admin.js' %}"></script>
+<script>
+    // Cashier Application ccccccccccccccc
+    function confirmApprove(event) {
+    const userConfirmed = confirm("Are you sure you want to approve this application request?");
+    if (!userConfirmed) {
+        // Prevent form submission if the admin cancels
+        event.preventDefault();
+        alert("You chose not to approve the request.");
+    } else {
+        console.log("Request approved!"); // Debug log
+    }
+}
+
+function confirmReject(event) {
+    const userConfirmed = confirm("Are you sure you want to reject this application request?");
+    if (!userConfirmed) {
+        // Prevent form submission if the admin cancels
+        event.preventDefault();
+        alert("You chose not to reject the request.");
+    } else {
+        console.log("Request rejected!"); // Debug log
+    }
+}
+</script>
+{% endblock %}
