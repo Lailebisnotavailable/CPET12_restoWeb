@@ -1,0 +1,201 @@
+/* General body and layout styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ebc64c;
+    color: #000; /* Set text color to black */
+}
+
+header, footer {
+    background-color: #333;
+    color: white; /* This can stay white for better contrast */
+    text-align: center;
+    padding: 1rem;
+}
+
+.profile-container {
+    width: 80%;
+    margin: auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container img {
+    display: block;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    color: #000; /* Set text color to black */
+}
+
+label {
+    margin-top: 10px;
+    color: #000; /* Set label color to black */
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #000; /* Set input text color to black */
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+    color: #000; /* Set read-only text color to black */
+}
+
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.address-grid input {
+    width: 100%;
+}
+
+/* Button styles */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-btn, .edit-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 48%;
+    opacity: 1;
+    display: inline-block;
+    visibility: visible;    
+}
+
+.edit-btn {
+    background-color: #007bff !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.update-btn:hover {
+    background-color: #218838;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.update-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Styles for image upload button */
+#image-upload-form {
+    position: relative;
+}
+
+#file-input {
+    display: none;
+}
+
+button[type="button"] {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Style for the image icon */
+button[type="button"] img {
+    height: 45px;
+    width: 45px;
+    transition: transform 0.2s;
+}
+
+button[type="button"]:hover img {
+    transform: scale(1.1);
+}
+
+/* Image Button Styles - Centering */
+.icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Targeting the sign-out button specifically */
+.sign-out-button img {
+    height: 45px !important;
+    width: 45px !important;
+}
+
+/* Ensure buttons in the header are aligned to the right */
+.right-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* Align greeting text */
+.greeting {
+    display: flex;
+    align-items: center;
+    margin-right: 600px;
+    flex-grow: 1;
+    white-space: nowrap;
+}
+
+.greeting-text {
+    margin-right: 10px;
+    color: #000; /* Set greeting text color to black */
+}
+
+/* Ensure logo images in header and footer are centered and shaped as rectangles */
+.logo-button {
+    margin: 2px; /* Minimize space around the button */
+    padding: 0; /* Remove extra padding */
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    width: auto; /* Allow the button to adjust based on the image dimensions */
+}
+
+.logo-button img {
+    display: block;
+    width: auto; /* Keep the image's natural width for a rectangular shape */
+    height: 45px; /* Set a consistent height for the logo */
+}
+
+/* Responsive Adjustment: Image buttons on small screens */
+@media (max-width: 768px) {
+    .greeting {
+        margin-right: 0;
+    }
+
+    .icon-button {
+        width: 45px;
+        height: 45px;
+    }
+}

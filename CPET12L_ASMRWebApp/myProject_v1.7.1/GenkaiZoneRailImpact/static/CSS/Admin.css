@@ -1,0 +1,187 @@
+/* Reset all margins and padding for body, h1, and main */
+body, h1, main {
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure there's no margin under the header */
+header {
+    margin-bottom: 0; /* No margin at the bottom */
+    padding: 0;
+}
+
+/* Custom styling for form-container */
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add smooth gradient background color to the tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-image: linear-gradient(to right, red, orange, green); /* Gradient from red to green with orange instead of yellow */
+    color: black;  /* Text color set to black */
+}
+
+/* Optional: Add a gradient background for table headers */
+th {
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent white for headers */
+    background-image: linear-gradient(to right, red, orange, green); /* Gradient for header */
+    color: black; /* Set header text color to black */
+    text-align: center; /* Center-align header text */
+    vertical-align: middle; /* Vertically center the header text */
+    padding: 10px; /* Ensure padding is consistent */
+    cursor: pointer; /* Indicate that the header is clickable */
+    position: relative; /* For sorting arrow */
+}
+
+/* Change the background on hover to show it is clickable */
+th:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Add sorting arrow indication when the column is sorted */
+th.asc::after,
+th.desc::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+}
+
+th.asc::after {
+    content: '↑'; /* Up arrow for ascending */
+}
+
+th.desc::after {
+    content: '↓'; /* Down arrow for descending */
+}
+
+/* Table cell styling */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;  /* Center-align text horizontally */
+    vertical-align: middle;  /* Vertically align text in the middle */
+    color: black;  /* Ensure text color is black */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Button styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Center-align the h1 in the main content and add 10px margin to main */
+main {
+    margin-top: 10px; /* Add a slight margin to the top */
+}
+
+h1 {
+    text-align: center; /* Center align the h1 */
+    margin-bottom: 10px; /* Optional: add space below the h1 */
+}
+
+/* Style for the toggle button for the dish list */
+#toggleButton {
+    cursor: pointer;
+    display: inline-block; /* Make the h2 only take up the space it needs */
+    margin: 0;             /* Remove any default margin */
+    padding: 0;            /* Remove any default padding */
+    font-size: 18px;       /* Set your desired font size */
+}
+
+#arrowIndicator {
+    font-size: 20px;       /* Adjust the arrow size if needed */
+    margin-left: 10px;     /* Space between the text and the arrow */
+}
+
+/* Style for the pagination container */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Style for individual pagination buttons */
+.pagination-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for the "previous" and "next" buttons */
+.pagination-button:hover {
+    background-color: #45a049;
+}
+
+/* Style for the current page info */
+.pagination-info {
+    font-size: 14px;
+    color: #333;
+    padding: 8px 12px;
+}
+
+/* Responsive Design: Ensures pagination is well spaced on smaller screens */
+@media screen and (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pagination-button {
+        margin-bottom: 5px;
+    }
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.saveButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.editButton {
+    background-color: #008CBA;
+    color: white;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.table-container {
+    margin: 20px;
+}

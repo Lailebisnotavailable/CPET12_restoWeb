@@ -1,0 +1,108 @@
+/* General Styling */
+body {
+    font-family: 'Georgia', serif;
+    background-color: #faf3e0; /* Light, warm background color */
+    margin: 0;
+    padding: 0;
+}
+.container {
+    margin-top: 30px;
+    background-color: #fff8f0; /* Soft beige for warmth */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow for depth */
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh; /* Ensures the container takes at least 80% of the viewport height */
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8b4513; /* Rich brown for a warm, inviting look */
+    font-family: 'Palatino', serif;
+    font-size: 2rem;
+}
+table {
+    width: 100%;
+    margin-bottom: 20px; /* Adds space below the table */
+    border-collapse: collapse; /* Minimalist table style */
+}
+th, td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px;
+    border: 1px solid #d3d3d3; /* Subtle border for a polished look */
+}
+th {
+    background-color: #f4e1d2; /* Warm, soft color for header */
+    color: #8b4513;
+    font-weight: bold;
+}
+.product-info {
+    display: flex;
+    align-items: center;
+}
+.product-info img {
+    width: 70px;
+    height: 70px;
+    margin-right: 15px;
+    border-radius: 8px;
+    border: 1px solid #d3d3d3; /* Border for a polished image look */
+}
+.remove-btn {
+    color: #dc3545;
+    border: none;
+    background: none;
+    font-size: 0.9em;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.remove-btn:hover {
+    color: #b22222; /* Darker red on hover */
+}
+
+/* Aligning the Total */
+.total-price {
+    display: flex;
+    justify-content: flex-end; /* Aligns total price to the right */
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #8b4513;
+}
+
+/* Button Styling */
+.button-container {
+    margin-top: auto; /* Pushes buttons to the bottom */
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 20px; /* Adds spacing above the buttons */
+    gap: 10px; /* Space between buttons */
+}
+.checkout-btn, .back-btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Adds depth with a shadow */
+    cursor: pointer;
+}
+.checkout-btn {
+    background-color: #d2691e; /* Burnt orange for warmth */
+}
+.checkout-btn:hover {
+    background-color: #cd853f; /* Lighter burnt orange on hover */
+    transform: translateY(-2px); /* Subtle lift on hover */
+}
+.back-btn {
+    background-color: #a0522d; /* Warm brown */
+}
+.back-btn:hover {
+    background-color: #8b4513;
+    transform: translateY(-2px); /* Subtle lift on hover */
+}

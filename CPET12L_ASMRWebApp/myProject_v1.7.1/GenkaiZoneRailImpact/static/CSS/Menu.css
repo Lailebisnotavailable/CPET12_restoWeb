@@ -1,0 +1,178 @@
+/* Container for both sort buttons and search line */
+.container {
+    display: flex;
+    justify-content: space-between; /* Distribute buttons and search bar across the container */
+    align-items: center;
+    width: 100%; /* Ensure it takes full width of the parent container */
+    background-color: #e0a628; /* Set the same background color for the entire container */
+    padding: 10px; /* Optional: Add padding for spacing */
+    border-radius: 8px; /* Optional: Add rounded corners to the container */
+}
+
+/* Flexbox Layout for Sorting Buttons */
+.sort-buttons-container {
+    display: inline-flex; /* Use flexbox to align items horizontally */
+    flex-direction: row;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 15px; /* Space between the buttons */
+    background-color: transparent; /* Transparent background, so it inherits from parent */
+    padding: 0; /* Remove additional padding, as it's applied to the container */
+}
+
+/* Non-Gradient Sort Buttons with Color Coding */
+.sort-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 15px; /* Rounded corners */
+    color: white;
+    text-align: center;
+    border: 2px solid transparent; /* Transparent border */
+    transition: background 0.3s ease, border 0.3s ease; /* Transition for background and border */
+    cursor: pointer; /* Makes the button clickable */
+    width: auto; /* Prevent stretching of buttons */
+}
+
+/* Color Coding for Each Button */
+.sort-button.appetizer {
+    background-color: #FFD700; /* Yellow for Appetizers */
+}
+
+.sort-button.main-dish {
+    background-color: #FF5733; /* Red for Main Dish */
+}
+
+.sort-button.drinks {
+    background-color: #28a745; /* Green for Drinks */
+}
+
+.sort-button.dessert {
+    background-color: #FF1493; /* Pink for Desserts */
+}
+
+/* Hover Effect for Buttons */
+.sort-button:hover {
+    opacity: 0.8;
+    border-color: rgb(0, 0, 0);
+}
+
+/* Search Line Container */
+.search-line-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align the search line to the right */
+    margin-left: 20px; /* Space between search line and buttons */
+    margin-right: 20px; /* Space between the search line and the right edge */
+    background-color: transparent; /* Transparent background, inherits from parent */
+    padding: 0; /* Remove additional padding */
+}
+
+/* Search Line Styling */
+.search-line {
+    padding: 3px 8px; /* Reduced padding */
+    font-size: 0.75rem; /* Smaller font size */
+    border-radius: 0; /* No rounded corners */
+    border: 1px solid #ccc; /* Light border */
+    width: 120px !important; /* Force a specific width */
+    max-width: 120px !important; /* Prevent input from stretching */
+    box-sizing: border-box;
+    outline: none; /* Remove default outline on focus */
+    display: inline-block; /* Ensure it behaves inline */
+}
+
+/* Optional: Styling for focus state */
+.search-line:focus {
+    border-color: #007bff; /* Change border color when focused */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle focus effect */
+}
+
+/* Container for both sort buttons and search line */
+.container {
+    display: flex;
+    justify-content: space-between; /* Distribute buttons and search bar across the container */
+    align-items: center;
+    width: 100%; /* Ensure it takes full width of the parent container */
+}
+
+/* Carousel Grid Layout */
+.carousel-inner {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into multiple lines */
+    justify-content: center; /* Center the carousel items */
+}
+
+.carousel-item {
+    margin: 15px;
+}
+
+.carousel-item .col-4 {
+    padding: 0 5px; /* Adjust the space between carousel items */
+}
+
+.carousel-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-image-wrapper img {
+    height: 300px; /* Fixed height for images */
+    object-fit: cover; /* Ensures the images fill the area without distortion */
+    width: 100%;
+}
+
+.carousel-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+.carousel-caption-overlay h5 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.carousel-caption-overlay p {
+    font-weight: bold;
+}
+
+/* Carousel Control Buttons */
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the buttons */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border: none;
+    color: white;
+    font-size: 2rem; /* Adjust font size to make buttons more visible */
+    width: 50px; /* Width of the button */
+    height: 50px; /* Height of the button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Circular buttons */
+    z-index: 2; /* Ensure buttons are above carousel images */
+}
+
+/* Position the "Previous" button at the leftmost side */
+.carousel-control-prev {
+    left: 10px;
+}
+
+/* Position the "Next" button at the rightmost side */
+.carousel-control-next {
+    right: 10px;
+}
+
+/* Hover Effect to Make Buttons Stand Out More */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: #ff5733; /* Bright color on hover */
+    border-color: #fff;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8); /* More prominent shadow on hover */
+}

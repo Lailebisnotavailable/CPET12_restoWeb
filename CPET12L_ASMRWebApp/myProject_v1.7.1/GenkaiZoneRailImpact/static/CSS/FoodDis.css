@@ -1,0 +1,162 @@
+/* General Body Styling */
+body {
+    font-family: 'Georgia', serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f5f1;
+}
+
+/* Main Content Wrapper */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Food Image Styling */
+.food-image img {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Details Section Styling */
+.details {
+    max-width: 500px;
+    margin-left: 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.details h2 {
+    font-size: 2rem;
+    color: #8b4513; /* Dark brown for a classic feel */
+    margin-bottom: 10px;
+}
+
+.details p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.details strong {
+    color: #333;
+    font-size: 1.3rem;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    background-color: #8b4513;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: #a0522d;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+    display: inline-block;
+    background-color: #d2691e;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #c2571a;
+}
+
+/* Feedback & Ratings Section */
+.feedback-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.feedback-section h3 {
+    font-size: 1.5rem;
+    color: #8b4513;
+    margin-bottom: 10px;
+}
+
+.feedback-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Star Image Styling */
+.feedback-section img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Additional Styling */
+h2, h3, p {
+    font-family: 'Georgia', serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus,
+input:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+button[type="button"] {
+    background-color: #8b4513; /* Warm brown color */
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: 'Georgia', serif;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 20px 0;
+}
+
+/* Hover and Active Effects */
+button[type="button"]:hover {
+    background-color: #a0522d; /* Slightly lighter brown on hover */
+}
+
+button[type="button"]:active {
+    transform: scale(0.98); /* Slight shrink effect on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Reduced shadow on click */
+}
+
+/* Focus Effect */
+button[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}

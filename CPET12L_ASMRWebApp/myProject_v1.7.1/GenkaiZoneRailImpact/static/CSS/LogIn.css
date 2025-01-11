@@ -1,0 +1,262 @@
+/* Ensure the body takes up full height */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff9c4; /* Light Yellow */
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+
+/* Header and Footer Common Styles */
+header, footer {
+    background-color: green;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header form, footer form {
+    display: inline-block; /* Makes form fit content */
+    margin: 0; /* Removes any default margin */
+    padding: 0; /* Removes any default padding */
+}
+
+header form button, footer form button {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+header form button img, footer form button img {
+    display: block; /* Removes extra space below the image */
+    height: 50px; /* Set image height */
+    width: 90px; /* Set image width */
+}
+
+/* Main content area styling */
+main {
+    flex: 1;
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    padding: 0; /* Optional: Remove padding if not needed */
+    background-color: #fff9c4; /* Light Yellow background for content */
+    position: relative; /* To position the button inside the main section */
+}
+
+/* Footer stays at the bottom */
+footer {
+    margin-top: auto; /* Ensures footer stays at the bottom */
+}
+
+/* Center Align the Login Container */
+.login-container {
+    background-color: #ffffff; /* White background for the container */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;  /* Maximum width for the form */
+    text-align: center;
+}
+
+/* Form and input field styles */
+.input-field,
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;           /* Ensures inputs fill the container */
+    padding: 10px;         /* Adds padding for readability */
+    margin: 8px 0;         /* Adds space between fields */
+    box-sizing: border-box; /* Ensures padding is included in width */
+    font-size: 16px;       /* Ensures font size is consistent */
+}
+
+input[type="email"],
+input[type="password"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50;  /* Green border on focus */
+    outline: none;
+}
+
+/* Submit Button */
+button[type="submit"], .toggle-visibility {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover, .toggle-visibility:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Styling for Links */
+a {
+    color: blue;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+/* Optional: Responsive Design for Mobile */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 15px;
+        width: 90%;
+    }
+}
+
+/* Return to Login Button */
+.return-btn {
+    display: flex; /* Make the image and text appear side by side */
+    align-items: center; /* Vertically center the image and text */
+    position: absolute;
+    top: 10px; /* Position at the top */
+    left: 10px; /* Position at the left */
+    text-decoration: none; /* Remove default link styling */
+}
+
+.return-login-btn {
+    height: 30px; /* Set image height */
+    width: 30px;  /* Set image width */
+    margin-right: 10px; /* Space between the image and text */
+}
+
+.return-btn {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #ffdada;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Styling for Form Labels */
+form div label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: inline-block;
+    text-align: left;
+    color: #333;
+}
+
+/* Password field styling */
+.password-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.password-field label {
+    margin-bottom: 5px;
+}
+
+.password-field .input-instruction {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+    display: inline-block; /* Make sure it stays on the same line */
+}
+
+.password-field input {
+    width: 100%; /* Ensure the input takes up the full width */
+    padding: 8px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.password-field button {
+    margin-left: 10px;
+}
+
+/* Header and Title */
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Input fields */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Focus State for Inputs */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50;  /* Green border on focus */
+    outline: none;
+}
+
+/* Toggle Visibility Button */
+.toggle-visibility {
+    width: 30px;
+    height: 30px;
+    background-color: transparent; /* Remove any background */
+    border: none;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    cursor: pointer;
+}
+
+.toggle-visibility img {
+    width: 30px;  /* Set image width */
+    height: 30px; /* Set image height */
+    object-fit: contain; /* Ensure the image fits the button without distortion */
+}
+
+/* Remove bullets and spacing from the list */
+ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;             /* Remove default margin */
+    padding: 0;            /* Remove default padding */
+    display: flex;         /* Display list items in a row */
+    gap: 20px;             /* Space between the list items */
+}
+
+/* Style the links */
+ul li a {
+    text-decoration: none; /* Remove underline */
+    color: blue;           /* Set link color to blue */
+    font-size: 15px;       /* Set font size */
+}
+
